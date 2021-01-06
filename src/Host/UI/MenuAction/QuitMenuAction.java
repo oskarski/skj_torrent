@@ -10,6 +10,6 @@ public class QuitMenuAction implements MenuAction {
 
     @Override
     public void call() {
-        HostState.setIsHostRunning(false);
+        HostState.quitProgram();
     }
 }
