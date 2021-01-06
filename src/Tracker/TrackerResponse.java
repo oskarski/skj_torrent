@@ -22,6 +22,10 @@ public class TrackerResponse {
         return new TrackerResponse(trackerRequest.getMethod(), 200, data);
     }
 
+    public static TrackerResponse fromRequest(TrackerRequest trackerRequest) {
+        return TrackerResponse.fromRequest(trackerRequest, "");
+    }
+
     public void send(BufferedWriter bufferedWriter) {
         try {
             bufferedWriter.write(this.method + " " + this.code + "\r\n" + this.data + "\r\n\r\n");

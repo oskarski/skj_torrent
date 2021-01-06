@@ -1,28 +1,58 @@
 package Tracker;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Tracker {
-    public static TrackerResponse fromTrackerRequest(TrackerRequest trackerRequest) {
-        if (trackerRequest.getMethod().equals(TrackerMethod.T_GET)) return get(trackerRequest);
-        if (trackerRequest.getMethod().equals(TrackerMethod.T_POST)) return post(trackerRequest);
-        if (trackerRequest.getMethod().equals(TrackerMethod.T_PUT)) return put(trackerRequest);
-        if (trackerRequest.getMethod().equals(TrackerMethod.T_DELETE)) return delete(trackerRequest);
+    private final TrackerRequest trackerRequest;
+    private final TrackerService trackerService = new TrackerService();
+    private final String addressRegex = "[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}:[0-9]+";
+    private final String numberOfChunksRegex = "[0-9]+";
+
+    private Tracker(TrackerRequest trackerRequest) {
+        this.trackerRequest = trackerRequest;
+    }
+
+    public static TrackerResponse fromTrackerRequest(TrackerRequest trackerRequest) throws TrackerException {
+        Tracker self = new Tracker(trackerRequest);
+
+        if (trackerRequest.getMethod().equals(TrackerMethod.T_GET)) return self.get();
+        if (trackerRequest.getMethod().equals(TrackerMethod.T_POST)) return self.post();
+        if (trackerRequest.getMethod().equals(TrackerMethod.T_PUT)) return self.put();
+        if (trackerRequest.getMethod().equals(TrackerMethod.T_DELETE)) return self.delete();
 
         return null;
     }
 
-    private static TrackerResponse get(TrackerRequest trackerRequest) {
+    private TrackerResponse get() {
         return TrackerResponse.fromRequest(trackerRequest, "todo get");
     }
 
-    private static TrackerResponse post(TrackerRequest trackerRequest) {
-        return TrackerResponse.fromRequest(trackerRequest, "todo post");
+    private TrackerResponse post() throws TrackerException {
+        Matcher matcher = this.getDataMatcher("(" + this.addressRegex + ")\\/(" + this.numberOfChunksRegex + ")");
+
+        String address = matcher.group(1);
+        int numberOfChunks = Integer.parseInt(matcher.group(2));
+
+        this.trackerService.register(this.trackerRequest.getTorrentHash(), address, numberOfChunks);
+
+        return TrackerResponse.fromRequest(this.trackerRequest);
     }
 
-    private static TrackerResponse put(TrackerRequest trackerRequest) {
-        return TrackerResponse.fromRequest(trackerRequest, "todo put");
+    private TrackerResponse put() {
+        return TrackerResponse.fromRequest(this.trackerRequest, "todo put");
     }
 
-    private static TrackerResponse delete(TrackerRequest trackerRequest) {
-        return TrackerResponse.fromRequest(trackerRequest, "todo delete");
+    private TrackerResponse delete() {
+        return TrackerResponse.fromRequest(this.trackerRequest, "todo delete");
+    }
+
+    private Matcher getDataMatcher(String regex) throws TrackerException {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(this.trackerRequest.getData());
+
+        if (!matcher.find()) throw TrackerException.badRequestException();
+
+        return matcher;
     }
 }

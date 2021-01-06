@@ -13,6 +13,10 @@ public class TrackerException extends Exception {
         return new TrackerException("Bad request", 400);
     }
 
+    public static TrackerException internalServerErrorException() {
+        return new TrackerException("Internal server error", 500);
+    }
+
     public int getCode() {
         return this.code;
     }
