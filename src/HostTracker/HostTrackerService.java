@@ -34,12 +34,8 @@ public class HostTrackerService {
         return data.toString();
     }
 
-    private File getHostsFile() {
-        return new File("src/HostTracker/hosts.txt");
-    }
-
     private HashSet<String> getHosts() throws HostTrackerException {
-        File file = this.getHostsFile();
+        File file = new File(HostTrackerState.getHostsPathname());
         HashSet<String> hosts = new HashSet<>();
 
         try {
@@ -60,7 +56,7 @@ public class HostTrackerService {
     }
 
     private void saveHosts(HashSet<String> hosts) throws HostTrackerException {
-        File file = this.getHostsFile();
+        File file = new File(HostTrackerState.getHostsPathname());
 
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);

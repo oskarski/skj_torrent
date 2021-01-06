@@ -1,6 +1,7 @@
 #!/bin/bash
 
 TRACKER_PORT=12345
+HOSTS_FILE=/Users/oskarkupski/IdeaProjects/SKJ_project/src/HostTracker/hosts.txt
 
 kill $(lsof -t -i:$TRACKER_PORT)
 
@@ -10,7 +11,7 @@ javac HostTrackerMain.java -d out
 cd out || exit
 
 echo "Running HostTracker program"
-java HostTrackerMain ${TRACKER_PORT} &
+java HostTrackerMain ${TRACKER_PORT} ${HOSTS_FILE} &
 
 echo "Success!"
 
