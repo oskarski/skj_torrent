@@ -2,6 +2,7 @@ package Tracker;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class TrackerService {
     public void upsertTorrent(String torrentHash, String address, int numberOfChunks) throws TrackerException {
@@ -18,6 +19,22 @@ public class TrackerService {
         torrent.remove(address);
 
         this.saveTorrent(torrent, torrentHash);
+    }
+
+    public String getTorrentData(String torrentHash) throws TrackerException {
+        HashMap<String, Integer> torrent = this.getTorrent(torrentHash);
+        StringBuilder data = new StringBuilder();
+
+        for (Map.Entry<String, Integer> entry : torrent.entrySet()) {
+            String address = entry.getKey();
+            Integer numberOfChunks = entry.getValue();
+
+            data.append(address).append("/").append(numberOfChunks).append("\r\n");
+        }
+
+        data.append("\r\n\r\n");
+
+        return data.toString();
     }
 
     private File getTorrentFile(String torrentHash) {

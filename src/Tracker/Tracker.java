@@ -23,8 +23,12 @@ public class Tracker {
         return null;
     }
 
-    private TrackerResponse get() {
-        return TrackerResponse.fromRequest(trackerRequest, "todo get");
+    private TrackerResponse get() throws TrackerException {
+        if (!this.trackerRequest.getData().isEmpty()) throw TrackerException.badRequestException();
+
+        String data = this.trackerService.getTorrentData(this.trackerRequest.getTorrentHash());
+
+        return TrackerResponse.fromRequest(trackerRequest, data);
     }
 
     private TrackerResponse post() throws TrackerException {
