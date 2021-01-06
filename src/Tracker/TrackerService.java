@@ -12,6 +12,14 @@ public class TrackerService {
         this.saveTorrent(torrent, torrentHash);
     }
 
+    public void deleteFromTorrent(String torrentHash, String address) throws TrackerException {
+        HashMap<String, Integer> torrent = this.getTorrent(torrentHash);
+
+        torrent.remove(address);
+
+        this.saveTorrent(torrent, torrentHash);
+    }
+
     private File getTorrentFile(String torrentHash) {
         return new File("src/Tracker/data/" + torrentHash + ".track");
     }
@@ -39,6 +47,12 @@ public class TrackerService {
 
     private void saveTorrent(HashMap<String, Integer> torrent, String torrentHash) throws TrackerException {
         File file = this.getTorrentFile(torrentHash);
+
+        if (torrent.isEmpty()) {
+            if (!file.delete()) throw TrackerException.internalServerErrorException();
+
+            return;
+        }
 
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);

@@ -38,8 +38,14 @@ public class Tracker {
         return TrackerResponse.fromRequest(this.trackerRequest);
     }
 
-    private TrackerResponse delete() {
-        return TrackerResponse.fromRequest(this.trackerRequest, "todo delete");
+    private TrackerResponse delete() throws TrackerException {
+        Matcher matcher = this.getDataMatcher("^(" + this.addressRegex + ")$");
+
+        String address = matcher.group(1);
+
+        this.trackerService.deleteFromTorrent(this.trackerRequest.getTorrentHash(), address);
+
+        return TrackerResponse.fromRequest(this.trackerRequest);
     }
 
     private Matcher getDataMatcher(String regex) throws TrackerException {
