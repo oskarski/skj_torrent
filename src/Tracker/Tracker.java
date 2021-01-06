@@ -1,13 +1,13 @@
 package Tracker;
 
+import utils.Regex;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Tracker {
     private final TrackerRequest trackerRequest;
     private final TrackerService trackerService = new TrackerService();
-    private final String addressRegex = "[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}:[0-9]+";
-    private final String numberOfChunksRegex = "[0-9]+";
 
     private Tracker(TrackerRequest trackerRequest) {
         this.trackerRequest = trackerRequest;
@@ -32,7 +32,7 @@ public class Tracker {
     }
 
     private TrackerResponse post() throws TrackerException {
-        Matcher matcher = this.getDataMatcher("^(" + this.addressRegex + ")\\/(" + this.numberOfChunksRegex + ")$");
+        Matcher matcher = this.getDataMatcher("^(" + Regex.addressRegex() + ")\\/(" + Regex.numberOfChunksRegex() + ")$");
 
         String address = matcher.group(1);
         int numberOfChunks = Integer.parseInt(matcher.group(2));
@@ -43,7 +43,7 @@ public class Tracker {
     }
 
     private TrackerResponse delete() throws TrackerException {
-        Matcher matcher = this.getDataMatcher("^(" + this.addressRegex + ")$");
+        Matcher matcher = this.getDataMatcher("^(" + Regex.addressRegex() + ")$");
 
         String address = matcher.group(1);
 
