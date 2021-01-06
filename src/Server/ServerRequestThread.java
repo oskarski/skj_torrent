@@ -1,11 +1,9 @@
-package HostTracker;
-
-import utils.transport.ServerException;
+package Server;
 
 import java.io.*;
 import java.net.Socket;
 
-public class HostTrackerRequestThread {
+public class ServerRequestThread {
     private InputStream inputStream;
     private InputStreamReader inputStreamReader;
     private BufferedReader bufferedReader;
@@ -13,7 +11,7 @@ public class HostTrackerRequestThread {
     private OutputStreamWriter outputStreamWriter;
     private BufferedWriter bufferedWriter;
 
-    private HostTrackerRequestThread(Socket clientSocket) {
+    private ServerRequestThread(Socket clientSocket) {
         try {
             this.inputStream = clientSocket.getInputStream();
             this.inputStreamReader = new InputStreamReader(inputStream);
@@ -27,16 +25,16 @@ public class HostTrackerRequestThread {
         }
     }
 
-    public static void fromSocket(Socket clientSocket) {
-        HostTrackerRequestThread self = new HostTrackerRequestThread(clientSocket);
+    public static <RequestType extends Request, ResponseType extends Response, ControllerType extends Controller<RequestType, ResponseType>> void fromClientSocket(Socket clientSocket, RequestReader<RequestType> requestReader, ResponseWriter<ResponseType> responseWriter, ControllerType controller) {
+        ServerRequestThread self = new ServerRequestThread(clientSocket);
 
         try {
-            HostTrackerRequest hostTrackerRequest = HostTrackerRequest.fromBufferedReader(self.bufferedReader);
-            HostTrackerResponse hostTrackerResponse = HostTracker.fromTrackerRequest(hostTrackerRequest);
+            RequestType request = requestReader.readRequest(self.bufferedReader);
+            ResponseType response = controller.handleRequest(request);
 
-            hostTrackerResponse.send(self.bufferedWriter);
+            responseWriter.send(response, self.bufferedWriter);
         } catch (ServerException exception) {
-            HostTrackerResponse.fromException(exception).send(self.bufferedWriter);
+            responseWriter.sendException(exception, self.bufferedWriter);
         }
 
         self.closeStreams();

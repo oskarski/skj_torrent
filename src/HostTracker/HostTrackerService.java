@@ -1,6 +1,6 @@
 package HostTracker;
 
-import utils.transport.ServerException;
+import Server.ServerException;
 
 import java.io.*;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package utils.transport;
+package Server;
 
 public class ServerException extends RuntimeException {
     private int code;

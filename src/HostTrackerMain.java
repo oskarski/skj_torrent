@@ -1,5 +1,5 @@
-import HostTracker.HostTrackerRequestThread;
-import HostTracker.HostTrackerState;
+import HostTracker.*;
+import Server.ServerRequestThread;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -17,7 +17,12 @@ public class HostTrackerMain {
             while (true) {
                 Socket client = serverSocket.accept();
 
-                new Thread(() -> HostTrackerRequestThread.fromSocket(client)).start();
+                new Thread(() -> ServerRequestThread.fromClientSocket(
+                        client,
+                        new HostTrackerRequestReader(),
+                        new HostTrackerResponseWriter(),
+                        new HostTrackerController()
+                )).start();
             }
         } catch (IOException exception) {
             exception.printStackTrace();

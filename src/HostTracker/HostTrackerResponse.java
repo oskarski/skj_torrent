@@ -1,14 +1,13 @@
 package HostTracker;
 
-import utils.transport.ServerException;
+import Server.Response;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HostTrackerResponse {
+public class HostTrackerResponse implements Response {
     private final String method;
     private final int code;
     private final String data;
@@ -17,10 +16,6 @@ public class HostTrackerResponse {
         this.method = method;
         this.code = code;
         this.data = data;
-    }
-
-    public static HostTrackerResponse fromException(ServerException serverException) {
-        return new HostTrackerResponse(serverException.getMessage(), serverException.getCode(), "");
     }
 
     public static HostTrackerResponse fromRequest(HostTrackerRequest hostTrackerRequest, String data) {
@@ -58,16 +53,15 @@ public class HostTrackerResponse {
         return null;
     }
 
-    public void send(BufferedWriter bufferedWriter) {
-        try {
-            bufferedWriter.write(this.method + " " + this.code + "\r\n" + this.data + "\r\n\r\n");
-            bufferedWriter.flush();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-    }
-
     public String getData() {
         return data;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public int getCode() {
+        return code;
     }
 }

@@ -1,7 +1,7 @@
 package HostTracker;
 
 import utils.Regex;
-import utils.transport.ServerException;
+import Server.ServerException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
