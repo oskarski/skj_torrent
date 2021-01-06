@@ -1,6 +1,7 @@
 package Host.UI;
 
 import Host.State;
+import Host.UI.MenuAction.ListMyFilesMenuAction;
 import Host.UI.MenuAction.QuitMenuAction;
 
 public class HostUIThread implements Runnable {
@@ -14,7 +15,9 @@ public class HostUIThread implements Runnable {
 
     @Override
     public void run() {
-        Menu menu = new Menu().addMenuAction(new QuitMenuAction());
+        Menu menu = new Menu()
+                .addMenuAction(new QuitMenuAction())
+                .addMenuAction(new ListMyFilesMenuAction());
 
         while (State.getIsHostRunning()) {
             menu.render();
