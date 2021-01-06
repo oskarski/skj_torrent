@@ -1,12 +1,13 @@
-import Host.State;
+import Host.HostState;
 import Host.UI.HostUIThread;
 
 public class HostMain {
     public static void main(String[] args) {
         int hostPort = Integer.parseInt(args[0]);
         String workspacePathname = args[1];
+        String hostTrackerAddress = args[2];
 
-        State.init(workspacePathname);
+        HostState.init(workspacePathname, hostTrackerAddress);
 
         try {
 //            TODO REGISTER IN TRACKER

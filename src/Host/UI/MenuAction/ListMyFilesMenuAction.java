@@ -1,6 +1,6 @@
 package Host.UI.MenuAction;
 
-import Host.State;
+import Host.HostState;
 
 import java.io.File;
 
@@ -12,10 +12,10 @@ public class ListMyFilesMenuAction implements MenuAction {
 
     @Override
     public void call() {
-        File directory = new File(State.getWorkspacePathname());
+        File directory = new File(HostState.getWorkspacePathname());
 
         for (File file : directory.listFiles()) {
-            System.out.println("  " + file.getName() + " " + file.length() + "B");
+            System.out.println(" -> " + file.getName() + " " + file.length() + "B");
         }
     }
 }

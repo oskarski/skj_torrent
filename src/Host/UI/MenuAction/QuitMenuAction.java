@@ -1,6 +1,6 @@
 package Host.UI.MenuAction;
 
-import Host.State;
+import Host.HostState;
 
 public class QuitMenuAction implements MenuAction {
     @Override
@@ -10,6 +10,6 @@ public class QuitMenuAction implements MenuAction {
 
     @Override
     public void call() {
-        State.setIsHostRunning(false);
+        HostState.setIsHostRunning(false);
     }
 }

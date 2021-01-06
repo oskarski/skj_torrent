@@ -17,13 +17,18 @@ public class Menu {
     public void render() {
         int i = 0;
 
+        System.out.println();
+
         for (MenuAction menuAction : this.menuActions) {
             System.out.println("[" + (i++) + "] - " + menuAction.getName());
         }
+
+        System.out.println();
     }
 
     public int readMenuAction() {
         try {
+            System.out.print("Type action: ");
             Scanner scanner = new Scanner(System.in);
 
             int action = scanner.nextInt();
@@ -45,7 +50,7 @@ public class Menu {
     }
 
     private void renderInvalidActionMessage() {
-        System.out.println("Nieprawidłowa akcja!");
+        System.out.println("Invalid action!");
     }
 
     public void callMenuAction(int action) {
