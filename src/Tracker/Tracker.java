@@ -18,7 +18,6 @@ public class Tracker {
 
         if (trackerRequest.getMethod().equals(TrackerMethod.T_GET)) return self.get();
         if (trackerRequest.getMethod().equals(TrackerMethod.T_POST)) return self.post();
-        if (trackerRequest.getMethod().equals(TrackerMethod.T_PUT)) return self.put();
         if (trackerRequest.getMethod().equals(TrackerMethod.T_DELETE)) return self.delete();
 
         return null;
@@ -29,18 +28,14 @@ public class Tracker {
     }
 
     private TrackerResponse post() throws TrackerException {
-        Matcher matcher = this.getDataMatcher("(" + this.addressRegex + ")\\/(" + this.numberOfChunksRegex + ")");
+        Matcher matcher = this.getDataMatcher("^(" + this.addressRegex + ")\\/(" + this.numberOfChunksRegex + ")$");
 
         String address = matcher.group(1);
         int numberOfChunks = Integer.parseInt(matcher.group(2));
 
-        this.trackerService.register(this.trackerRequest.getTorrentHash(), address, numberOfChunks);
+        this.trackerService.upsertTorrent(this.trackerRequest.getTorrentHash(), address, numberOfChunks);
 
         return TrackerResponse.fromRequest(this.trackerRequest);
-    }
-
-    private TrackerResponse put() {
-        return TrackerResponse.fromRequest(this.trackerRequest, "todo put");
     }
 
     private TrackerResponse delete() {

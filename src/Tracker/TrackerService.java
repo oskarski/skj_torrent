@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.HashMap;
 
 public class TrackerService {
-    public void register(String torrentHash, String address, int numberOfChunks) throws TrackerException {
+    public void upsertTorrent(String torrentHash, String address, int numberOfChunks) throws TrackerException {
         HashMap<String, Integer> torrent = this.getTorrent(torrentHash);
 
         torrent.put(address, numberOfChunks);
