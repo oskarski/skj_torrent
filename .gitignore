@@ -2,3 +2,4 @@
 out
 
 src/Tracker/data
+src/HostTracker/hosts.txt
