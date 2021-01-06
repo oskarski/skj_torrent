@@ -1,6 +1,7 @@
 package HostTracker;
 
 import utils.Regex;
+import utils.transport.ServerException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +14,7 @@ public class HostTracker {
         this.hostTrackerRequest = hostTrackerRequest;
     }
 
-    public static HostTrackerResponse fromTrackerRequest(HostTrackerRequest hostTrackerRequest) throws HostTrackerException {
+    public static HostTrackerResponse fromTrackerRequest(HostTrackerRequest hostTrackerRequest) {
         HostTracker self = new HostTracker(hostTrackerRequest);
 
         if (hostTrackerRequest.getMethod().equals(HostTrackerMethod.LIST_HOSTS)) return self.listHosts();
@@ -23,15 +24,15 @@ public class HostTracker {
         return null;
     }
 
-    private HostTrackerResponse listHosts() throws HostTrackerException {
-        if (!this.hostTrackerRequest.getData().isEmpty()) throw HostTrackerException.badRequestException();
+    private HostTrackerResponse listHosts() {
+        if (!this.hostTrackerRequest.getData().isEmpty()) throw ServerException.badRequestException();
 
         String data = this.hostTrackerService.getHostsData();
 
         return HostTrackerResponse.fromRequest(this.hostTrackerRequest, data);
     }
 
-    private HostTrackerResponse registerHost() throws HostTrackerException {
+    private HostTrackerResponse registerHost() {
         Matcher matcher = this.getDataMatcher("^(" + Regex.addressRegex() + ")$");
 
         String address = matcher.group(1);
@@ -41,7 +42,7 @@ public class HostTracker {
         return HostTrackerResponse.fromRequest(this.hostTrackerRequest);
     }
 
-    private HostTrackerResponse unregisterHost() throws HostTrackerException {
+    private HostTrackerResponse unregisterHost() {
         Matcher matcher = this.getDataMatcher("^(" + Regex.addressRegex() + ")$");
 
         String address = matcher.group(1);
@@ -51,11 +52,11 @@ public class HostTracker {
         return HostTrackerResponse.fromRequest(this.hostTrackerRequest);
     }
 
-    private Matcher getDataMatcher(String regex) throws HostTrackerException {
+    private Matcher getDataMatcher(String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(this.hostTrackerRequest.getData());
 
-        if (!matcher.find()) throw HostTrackerException.badRequestException();
+        if (!matcher.find()) throw ServerException.badRequestException();
 
         return matcher;
     }

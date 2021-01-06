@@ -1,10 +1,12 @@
 package HostTracker;
 
+import utils.transport.ServerException;
+
 import java.io.*;
 import java.util.HashSet;
 
 public class HostTrackerService {
-    public void registerHost(String hostAddress) throws HostTrackerException {
+    public void registerHost(String hostAddress) {
         HashSet<String> hosts = this.getHosts();
 
         hosts.add(hostAddress);
@@ -12,7 +14,7 @@ public class HostTrackerService {
         this.saveHosts(hosts);
     }
 
-    public void unregisterHost(String hostAddress) throws HostTrackerException {
+    public void unregisterHost(String hostAddress) {
         HashSet<String> hosts = this.getHosts();
 
         hosts.remove(hostAddress);
@@ -20,7 +22,7 @@ public class HostTrackerService {
         this.saveHosts(hosts);
     }
 
-    public String getHostsData() throws HostTrackerException {
+    public String getHostsData() {
         HashSet<String> hosts = this.getHosts();
 
         StringBuilder data = new StringBuilder();
@@ -34,7 +36,7 @@ public class HostTrackerService {
         return data.toString();
     }
 
-    private HashSet<String> getHosts() throws HostTrackerException {
+    private HashSet<String> getHosts() {
         File file = new File(HostTrackerState.getHostsPathname());
         HashSet<String> hosts = new HashSet<>();
 
@@ -49,13 +51,13 @@ public class HostTrackerService {
         } catch (FileNotFoundException e) {
 
         } catch (IOException | ClassNotFoundException exception) {
-            throw HostTrackerException.internalServerErrorException();
+            throw ServerException.internalServerErrorException();
         }
 
         return hosts;
     }
 
-    private void saveHosts(HashSet<String> hosts) throws HostTrackerException {
+    private void saveHosts(HashSet<String> hosts) {
         File file = new File(HostTrackerState.getHostsPathname());
 
         try {
@@ -67,7 +69,7 @@ public class HostTrackerService {
             objectOutputStream.close();
             fileOutputStream.close();
         } catch (IOException exception) {
-            throw HostTrackerException.internalServerErrorException();
+            throw ServerException.internalServerErrorException();
         }
     }
 }

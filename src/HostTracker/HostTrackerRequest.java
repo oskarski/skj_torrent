@@ -1,5 +1,7 @@
 package HostTracker;
 
+import utils.transport.ServerException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -20,11 +22,11 @@ public class HostTrackerRequest {
         return data;
     }
 
-    public static HostTrackerRequest fromBufferedReader(BufferedReader bufferedReader) throws HostTrackerException {
+    public static HostTrackerRequest fromBufferedReader(BufferedReader bufferedReader) {
         try {
             String method = bufferedReader.readLine();
 
-            if (!HostTrackerMethod.isValidMethod(method)) throw HostTrackerException.badRequestException();
+            if (!HostTrackerMethod.isValidMethod(method)) throw ServerException.badRequestException();
 
             String dataLine = bufferedReader.readLine();
             StringBuilder data = new StringBuilder(dataLine);
@@ -36,7 +38,7 @@ public class HostTrackerRequest {
 
             return new HostTrackerRequest(method, data.toString());
         } catch (IOException exception) {
-            throw HostTrackerException.badRequestException();
+            throw ServerException.badRequestException();
         }
     }
 }

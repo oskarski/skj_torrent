@@ -1,5 +1,7 @@
 package HostTracker;
 
+import utils.transport.ServerException;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -17,8 +19,8 @@ public class HostTrackerResponse {
         this.data = data;
     }
 
-    public static HostTrackerResponse fromException(HostTrackerException hostTrackerException) {
-        return new HostTrackerResponse(hostTrackerException.getMessage(), hostTrackerException.getCode(), "");
+    public static HostTrackerResponse fromException(ServerException serverException) {
+        return new HostTrackerResponse(serverException.getMessage(), serverException.getCode(), "");
     }
 
     public static HostTrackerResponse fromRequest(HostTrackerRequest hostTrackerRequest, String data) {

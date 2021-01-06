@@ -1,5 +1,7 @@
 package HostTracker;
 
+import utils.transport.ServerException;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -33,7 +35,7 @@ public class HostTrackerRequestThread {
             HostTrackerResponse hostTrackerResponse = HostTracker.fromTrackerRequest(hostTrackerRequest);
 
             hostTrackerResponse.send(self.bufferedWriter);
-        } catch (HostTrackerException exception) {
+        } catch (ServerException exception) {
             HostTrackerResponse.fromException(exception).send(self.bufferedWriter);
         }
 
