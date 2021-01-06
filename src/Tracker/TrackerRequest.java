@@ -26,13 +26,13 @@ public class TrackerRequest {
         return data;
     }
 
-    public static TrackerRequest fromBufferedReader(BufferedReader bufferedReader) throws BadRequestException {
+    public static TrackerRequest fromBufferedReader(BufferedReader bufferedReader) throws TrackerException {
         try {
             String method = bufferedReader.readLine();
             String torrentHash = bufferedReader.readLine();
 
-            if (!TrackerMethod.isValidMethod(method)) throw new BadRequestException();
-            if (torrentHash.isEmpty()) throw new BadRequestException();
+            if (!TrackerMethod.isValidMethod(method)) throw TrackerException.badRequestException();
+            if (torrentHash.isEmpty()) throw TrackerException.badRequestException();
 
             String dataLine = bufferedReader.readLine();
             StringBuilder data = new StringBuilder(dataLine);
@@ -44,7 +44,7 @@ public class TrackerRequest {
 
             return new TrackerRequest(method, torrentHash, data.toString());
         } catch (IOException exception) {
-            throw new BadRequestException();
+            throw TrackerException.badRequestException();
         }
     }
 }

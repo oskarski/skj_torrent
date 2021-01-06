@@ -33,7 +33,7 @@ public class TrackerRequestThread {
             TrackerResponse trackerResponse = Tracker.fromTrackerRequest(trackerRequest);
 
             trackerResponse.send(self.bufferedWriter);
-        } catch (BadRequestException exception) {
+        } catch (TrackerException exception) {
             TrackerResponse.fromException(exception).send(self.bufferedWriter);
         }
 

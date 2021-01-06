@@ -14,8 +14,8 @@ public class TrackerResponse {
         this.data = data;
     }
 
-    public static TrackerResponse fromException(BadRequestException badRequestException) {
-        return new TrackerResponse(badRequestException.getMessage(), badRequestException.code, "");
+    public static TrackerResponse fromException(TrackerException trackerException) {
+        return new TrackerResponse(trackerException.getMessage(), trackerException.getCode(), "");
     }
 
     public static TrackerResponse fromRequest(TrackerRequest trackerRequest, String data) {
