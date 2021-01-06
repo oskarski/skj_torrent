@@ -2,13 +2,13 @@ package HostTracker;
 
 import Server.Request;
 
-public class HostTrackerRequest implements Request {
+public class HostTrackerRequest extends Request {
     private final String method;
-    private final String data;
 
     public HostTrackerRequest(String method, String data) {
+        super(data);
+
         this.method = method;
-        this.data = data;
     }
 
     public String getMethod() {

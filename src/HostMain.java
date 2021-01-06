@@ -1,7 +1,12 @@
+import Host.HostController;
+import Host.HostRequestReader;
+import Host.HostResponseWriter;
 import Host.HostState;
 import Host.UI.HostUIThread;
+import Server.ServerRequestThread;
 
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class HostMain {
     public static void main(String[] args) {
@@ -17,7 +22,18 @@ public class HostMain {
 
             new Thread(HostUIThread.create()).start();
 
-//            TODO LISTEN ON INCOMING CONNECTIONS no hostPort
+            while (HostState.getIsHostRunning()) {
+                Socket client = hostServerSocket.accept();
+
+                new Thread(() -> ServerRequestThread.fromClientSocket(
+                        client,
+                        new HostRequestReader(),
+                        new HostResponseWriter(),
+                        new HostController()
+                )).start();
+            }
+
+            hostServerSocket.close();
         } catch (Exception exception) {
 //            TODO UNREGISTER IN TRACKER
         }

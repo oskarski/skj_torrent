@@ -7,15 +7,9 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HostTrackerResponse implements Response {
-    private final String method;
-    private final int code;
-    private final String data;
-
-    public HostTrackerResponse(String method, int code, String data) {
-        this.method = method;
-        this.code = code;
-        this.data = data;
+public class HostTrackerResponse extends Response {
+    protected HostTrackerResponse(String method, int code, String data) {
+        super(method, code, data);
     }
 
     public static HostTrackerResponse fromRequest(HostTrackerRequest hostTrackerRequest, String data) {
@@ -51,17 +45,5 @@ public class HostTrackerResponse implements Response {
         }
 
         return null;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public int getCode() {
-        return code;
     }
 }

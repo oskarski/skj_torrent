@@ -5,10 +5,8 @@ import Server.Controller;
 import Server.ServerException;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class HostTrackerController implements Controller<HostTrackerRequest, HostTrackerResponse> {
-    private HostTrackerRequest request;
+public class HostTrackerController extends Controller<HostTrackerRequest, HostTrackerResponse> {
     private final HostTrackerService hostTrackerService = new HostTrackerService();
 
     @Override
@@ -48,14 +46,5 @@ public class HostTrackerController implements Controller<HostTrackerRequest, Hos
         this.hostTrackerService.unregisterHost(address);
 
         return HostTrackerResponse.fromRequest(this.request);
-    }
-
-    private Matcher getDataMatcher(String regex) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(this.request.getData());
-
-        if (!matcher.find()) throw ServerException.badRequestException();
-
-        return matcher;
     }
 }
