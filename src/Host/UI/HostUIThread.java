@@ -1,10 +1,7 @@
 package Host.UI;
 
 import Host.HostState;
-import Host.UI.MenuAction.ListHostsFilesMenuAction;
-import Host.UI.MenuAction.ListHostsMenuAction;
-import Host.UI.MenuAction.ListMyFilesMenuAction;
-import Host.UI.MenuAction.QuitMenuAction;
+import Host.UI.MenuAction.*;
 
 public class HostUIThread implements Runnable {
     private HostUIThread() {
@@ -21,7 +18,8 @@ public class HostUIThread implements Runnable {
                 .addMenuAction(new QuitMenuAction())
                 .addMenuAction(new ListMyFilesMenuAction())
                 .addMenuAction(new ListHostsMenuAction())
-                .addMenuAction(new ListHostsFilesMenuAction());
+                .addMenuAction(new ListHostsFilesMenuAction())
+                .addMenuAction(new ListFilesOnHostMenuAction());
 
         while (HostState.getIsHostRunning()) {
             menu.render();

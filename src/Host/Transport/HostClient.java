@@ -33,4 +33,14 @@ public class HostClient {
 
         return listFilesItems;
     }
+
+    public boolean ping(String hostAddress) {
+        try {
+            HostResponse response = client.call(hostAddress, new HostRequest(HostMethod.PING));
+
+            return true;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
 }

@@ -11,6 +11,7 @@ public class HostController extends Controller<HostRequest, HostResponse> {
         this.request = request;
 
         if (this.request.getMethod().equals(HostMethod.LIST_FILES)) return this.listFiles();
+        if (this.request.getMethod().equals(HostMethod.PING)) return this.ping();
 
         return null;
     }
@@ -21,5 +22,9 @@ public class HostController extends Controller<HostRequest, HostResponse> {
         String data = this.hostService.getListFilesData();
 
         return HostResponse.fromRequest(this.request, data);
+    }
+
+    private HostResponse ping() {
+        return HostResponse.fromRequest(this.request, "");
     }
 }
