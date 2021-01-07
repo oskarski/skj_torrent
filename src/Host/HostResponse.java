@@ -14,4 +14,8 @@ public class HostResponse extends Response {
     public static HostResponse fromRequest(HostRequest hostTrackerRequest) {
         return HostResponse.fromRequest(hostTrackerRequest, "");
     }
+
+    public static HostResponse create(String method, int code, String data) {
+        return new HostResponse(method, code, data);
+    }
 }

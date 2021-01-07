@@ -17,6 +17,22 @@ public class Regex {
         return "^(" + ipRegex() + "):(" + portRegex() + ")$";
     }
 
+    public static String fileHashRegex() {
+        return "[a-zA-Z0-9]+";
+    }
+
+    public static String fileNameRegex() {
+        return "[a-zA-Z0-9._-]+";
+    }
+
+    public static String fileSizeRegex() {
+        return "[0-9]+";
+    }
+
+    public static String groupedListFilesDataLineRegex() {
+        return "^(" + fileHashRegex() + ") (" + fileSizeRegex() + ") (" + (fileNameRegex()) + ")$";
+    }
+
     public static String numberOfChunksRegex() {
         return "[0-9]+";
     }
