@@ -1,10 +1,13 @@
 package Host.MenuAction;
 
-import Host.HostState;
+import Host.LocalFileService;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class ListMyFilesMenuAction implements MenuAction {
+    private final LocalFileService localFileService = new LocalFileService();
+
     @Override
     public String getName() {
         return "List my files";
@@ -12,9 +15,15 @@ public class ListMyFilesMenuAction implements MenuAction {
 
     @Override
     public void call() {
-        File directory = new File(HostState.getWorkspacePathname());
+        ArrayList<File> files = localFileService.getFileList();
 
-        for (File file : directory.listFiles()) {
+        if (files.size() == 0) {
+            System.out.println("No files");
+
+            return;
+        }
+
+        for (File file : files) {
             System.out.println(" -> " + file.getName() + " " + file.length() + "B");
         }
     }

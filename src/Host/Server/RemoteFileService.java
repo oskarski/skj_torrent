@@ -2,6 +2,7 @@ package Host.Server;
 
 import Host.Client.ListFilesItem;
 import Host.HostState;
+import Host.LocalFileService;
 import utils.FileRepository;
 
 import java.io.File;

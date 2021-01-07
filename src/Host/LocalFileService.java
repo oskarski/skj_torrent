@@ -1,6 +1,5 @@
-package Host.Server;
+package Host;
 
-import Host.HostState;
 import utils.FileHasher;
 import utils.FileRepository;
 
@@ -14,7 +13,7 @@ public class LocalFileService {
         File directory = new File(HostState.getWorkspacePathname());
 
         for (File file : directory.listFiles()) {
-            if (!file.isDirectory()) files.add(file);
+            if (file.isFile()) files.add(file);
         }
 
         return files;
