@@ -22,7 +22,7 @@ public class HostClient {
         ArrayList<ListFilesItem> listFilesItems = new ArrayList<>();
 
         for (String fileDataLine : response.getData().split("\r\n")) {
-            Pattern pattern = Pattern.compile(Regex.groupedListFilesDataLineRegex());
+            Pattern pattern = Pattern.compile("^(" + Regex.fileHashRegex() + ") (" + Regex.digits() + ") (" + (Regex.fileNameRegex()) + ")$");
             Matcher matcher = pattern.matcher(fileDataLine);
 
             if (matcher.find()) {

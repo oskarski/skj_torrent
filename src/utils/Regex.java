@@ -2,19 +2,15 @@ package utils;
 
 public class Regex {
     public static String ipRegex() {
-        return "[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}";
-    }
-
-    public static String portRegex() {
-        return "[0-9]+";
+        return digits(1, 3) + "[.]" + digits(1, 3) + "[.]" + digits(1, 3) + "[.]" + digits(1, 3);
     }
 
     public static String addressRegex() {
-        return ipRegex() + ":" + portRegex();
+        return ipRegex() + ":" + digits();
     }
 
     public static String groupedAddressRegex() {
-        return "^(" + ipRegex() + "):(" + portRegex() + ")$";
+        return "^(" + ipRegex() + "):(" + digits() + ")$";
     }
 
     public static String fileHashRegex() {
@@ -25,15 +21,15 @@ public class Regex {
         return "[a-zA-Z0-9._-]+";
     }
 
-    public static String fileSizeRegex() {
-        return "[0-9]+";
+    public static String digit() {
+        return "[0-9]";
     }
 
-    public static String groupedListFilesDataLineRegex() {
-        return "^(" + fileHashRegex() + ") (" + fileSizeRegex() + ") (" + (fileNameRegex()) + ")$";
+    public static String digits() {
+        return digit() + "+";
     }
 
-    public static String numberOfChunksRegex() {
-        return "[0-9]+";
+    public static String digits(int min, int max) {
+        return digit() + "{" + min + "," + max + "}";
     }
 }
