@@ -11,11 +11,11 @@ public class HostState {
     private static String workspacePathname;
     private static String hostTrackerIP;
     private static int hostTrackerPort;
-    private static TcpServer<HostRequest, HostResponse, HostController> hostTcpServer;
+    private static TcpServer<HostResponse, HostController> hostTcpServer;
     public static final HostTrackerClient hostTrackerClient = new HostTrackerClient();
     public static final HostClient hostClient = new HostClient();
 
-    public static void init(String workspacePathname, String hostTrackerAddress, TcpServer<HostRequest, HostResponse, HostController> hostTcpServer) {
+    public static void init(String workspacePathname, String hostTrackerAddress, TcpServer<HostResponse, HostController> hostTcpServer) {
         HostState.workspacePathname = workspacePathname;
         HostState.hostTrackerIP = hostTrackerAddress.split(":")[0];
         HostState.hostTrackerPort = Integer.parseInt(hostTrackerAddress.split(":")[1]);

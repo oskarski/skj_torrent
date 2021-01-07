@@ -1,12 +1,16 @@
 package TcpServer;
 
-public abstract class Request {
+public class Request {
     protected final String method;
     protected final String data;
 
-    protected Request(String method, String data) {
+    public Request(String method, String data) {
         this.method = method;
         this.data = data;
+    }
+
+    public Request(String method) {
+        this(method, "");
     }
 
     public String getData() {

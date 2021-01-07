@@ -25,11 +25,11 @@ public class ServerRequestThread {
         }
     }
 
-    public static <RequestType extends Request, ResponseType extends Response, ControllerType extends Controller<RequestType, ResponseType>> void fromClientSocket(Socket clientSocket, RequestReader<RequestType> requestReader, ResponseWriter<ResponseType> responseWriter, ControllerType controller) {
+    public static <ResponseType extends Response, ControllerType extends Controller<Request, ResponseType>> void fromClientSocket(Socket clientSocket, RequestReader<Request> requestReader, ResponseWriter<ResponseType> responseWriter, ControllerType controller) {
         ServerRequestThread self = new ServerRequestThread(clientSocket);
 
         try {
-            RequestType request = requestReader.readRequest(self.bufferedReader);
+            Request request = requestReader.readRequest(self.bufferedReader);
             ResponseType response = controller.handleRequest(request);
 
             responseWriter.send(response, self.bufferedWriter);

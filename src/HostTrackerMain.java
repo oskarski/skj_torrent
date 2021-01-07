@@ -8,7 +8,7 @@ public class HostTrackerMain {
         HostTrackerState.initialize(args[1]);
 
         try {
-            TcpServer<HostTrackerRequest, HostTrackerResponse, HostTrackerController> server = new TcpServer<HostTrackerRequest, HostTrackerResponse, HostTrackerController>(serverPort)
+            TcpServer<HostTrackerResponse, HostTrackerController> server = new TcpServer<HostTrackerResponse, HostTrackerController>(serverPort)
                     .useRequestReader(new HostTrackerRequestReader())
                     .useResponseWriter(new HostTrackerResponseWriter())
                     .useController(new HostTrackerController());

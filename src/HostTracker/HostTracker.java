@@ -1,35 +1,36 @@
 package HostTracker;
 
-import utils.Regex;
+import TcpServer.Request;
 import TcpServer.ServerException;
+import utils.Regex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HostTracker {
-    private final HostTrackerRequest hostTrackerRequest;
+    private final Request request;
     private final HostTrackerService hostTrackerService = new HostTrackerService();
 
-    private HostTracker(HostTrackerRequest hostTrackerRequest) {
-        this.hostTrackerRequest = hostTrackerRequest;
+    private HostTracker(Request request) {
+        this.request = request;
     }
 
-    public static HostTrackerResponse fromTrackerRequest(HostTrackerRequest hostTrackerRequest) {
-        HostTracker self = new HostTracker(hostTrackerRequest);
+    public static HostTrackerResponse fromTrackerRequest(Request request) {
+        HostTracker self = new HostTracker(request);
 
-        if (hostTrackerRequest.getMethod().equals(HostTrackerMethod.LIST_HOSTS)) return self.listHosts();
-        if (hostTrackerRequest.getMethod().equals(HostTrackerMethod.REGISTER_HOST)) return self.registerHost();
-        if (hostTrackerRequest.getMethod().equals(HostTrackerMethod.UNREGISTER_HOST)) return self.unregisterHost();
+        if (request.getMethod().equals(HostTrackerMethod.LIST_HOSTS)) return self.listHosts();
+        if (request.getMethod().equals(HostTrackerMethod.REGISTER_HOST)) return self.registerHost();
+        if (request.getMethod().equals(HostTrackerMethod.UNREGISTER_HOST)) return self.unregisterHost();
 
         return null;
     }
 
     private HostTrackerResponse listHosts() {
-        if (!this.hostTrackerRequest.getData().isEmpty()) throw ServerException.badRequestException();
+        if (!this.request.getData().isEmpty()) throw ServerException.badRequestException();
 
         String data = this.hostTrackerService.getHostsData();
 
-        return HostTrackerResponse.fromRequest(this.hostTrackerRequest, data);
+        return HostTrackerResponse.fromRequest(this.request, data);
     }
 
     private HostTrackerResponse registerHost() {
@@ -39,7 +40,7 @@ public class HostTracker {
 
         this.hostTrackerService.registerHost(address);
 
-        return HostTrackerResponse.fromRequest(this.hostTrackerRequest);
+        return HostTrackerResponse.fromRequest(this.request);
     }
 
     private HostTrackerResponse unregisterHost() {
@@ -49,12 +50,12 @@ public class HostTracker {
 
         this.hostTrackerService.unregisterHost(address);
 
-        return HostTrackerResponse.fromRequest(this.hostTrackerRequest);
+        return HostTrackerResponse.fromRequest(this.request);
     }
 
     private Matcher getDataMatcher(String regex) {
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(this.hostTrackerRequest.getData());
+        Matcher matcher = pattern.matcher(this.request.getData());
 
         if (!matcher.find()) throw ServerException.badRequestException();
 

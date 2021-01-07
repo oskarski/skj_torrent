@@ -1,14 +1,15 @@
 package HostTracker;
 
+import TcpServer.Request;
 import TcpServer.RequestReader;
 import TcpServer.ServerException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class HostTrackerRequestReader implements RequestReader<HostTrackerRequest> {
+public class HostTrackerRequestReader implements RequestReader<Request> {
     @Override
-    public HostTrackerRequest readRequest(BufferedReader bufferedReader) {
+    public Request readRequest(BufferedReader bufferedReader) {
         try {
             String method = bufferedReader.readLine();
 
@@ -22,7 +23,7 @@ public class HostTrackerRequestReader implements RequestReader<HostTrackerReques
                 data.append(dataLine);
             }
 
-            return new HostTrackerRequest(method, data.toString());
+            return new Request(method, data.toString());
         } catch (IOException exception) {
             throw ServerException.badRequestException();
         }

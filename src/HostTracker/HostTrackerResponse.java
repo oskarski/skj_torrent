@@ -1,5 +1,6 @@
 package HostTracker;
 
+import TcpServer.Request;
 import TcpServer.Response;
 
 public class HostTrackerResponse extends Response {
@@ -11,11 +12,11 @@ public class HostTrackerResponse extends Response {
         return new HostTrackerResponse(method, code, data);
     }
 
-    public static HostTrackerResponse fromRequest(HostTrackerRequest hostTrackerRequest, String data) {
-        return new HostTrackerResponse(hostTrackerRequest.getMethod(), 200, data);
+    public static HostTrackerResponse fromRequest(Request request, String data) {
+        return new HostTrackerResponse(request.getMethod(), 200, data);
     }
 
-    public static HostTrackerResponse fromRequest(HostTrackerRequest hostTrackerRequest) {
-        return HostTrackerResponse.fromRequest(hostTrackerRequest, "");
+    public static HostTrackerResponse fromRequest(Request request) {
+        return HostTrackerResponse.fromRequest(request, "");
     }
 }

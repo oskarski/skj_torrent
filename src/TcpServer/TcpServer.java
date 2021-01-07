@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class TcpServer<RequestType extends Request, ResponseType extends Response, ControllerType extends Controller<RequestType, ResponseType>> {
+public class TcpServer<ResponseType extends Response, ControllerType extends Controller<Request, ResponseType>> {
     private boolean isRunning = false;
     private int currentServerThreads = 0;
-    private RequestReader<RequestType> requestReader;
+    private RequestReader<Request> requestReader;
     private ResponseWriter<ResponseType> responseWriter;
     private ControllerType controller;
 
@@ -18,19 +18,19 @@ public class TcpServer<RequestType extends Request, ResponseType extends Respons
         serverSocket = new ServerSocket(serverPort);
     }
 
-    public TcpServer<RequestType, ResponseType, ControllerType> useRequestReader(RequestReader<RequestType> requestReader) {
+    public TcpServer<ResponseType, ControllerType> useRequestReader(RequestReader<Request> requestReader) {
         this.requestReader = requestReader;
 
         return this;
     }
 
-    public TcpServer<RequestType, ResponseType, ControllerType> useResponseWriter(ResponseWriter<ResponseType> responseWriter) {
+    public TcpServer<ResponseType, ControllerType> useResponseWriter(ResponseWriter<ResponseType> responseWriter) {
         this.responseWriter = responseWriter;
 
         return this;
     }
 
-    public TcpServer<RequestType, ResponseType, ControllerType> useController(ControllerType controller) {
+    public TcpServer<ResponseType, ControllerType> useController(ControllerType controller) {
         this.controller = controller;
 
         return this;
@@ -58,7 +58,7 @@ public class TcpServer<RequestType extends Request, ResponseType extends Respons
         return currentServerThreads < maxServerThreads;
     }
 
-    private void handleConnection(Socket clientSocket, RequestReader<RequestType> requestReader, ResponseWriter<ResponseType> responseWriter, ControllerType controller) {
+    private void handleConnection(Socket clientSocket, RequestReader<Request> requestReader, ResponseWriter<ResponseType> responseWriter, ControllerType controller) {
         currentServerThreads++;
 
         ServerRequestThread.fromClientSocket(clientSocket, requestReader, responseWriter, controller);

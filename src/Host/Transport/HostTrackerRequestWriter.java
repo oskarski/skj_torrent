@@ -1,8 +1,8 @@
 package Host.Transport;
 
 import Client.RequestWriter;
-import HostTracker.HostTrackerRequest;
+import TcpServer.Request;
 
-public class HostTrackerRequestWriter extends RequestWriter<HostTrackerRequest> {
+public class HostTrackerRequestWriter extends RequestWriter<Request> {
 
 }

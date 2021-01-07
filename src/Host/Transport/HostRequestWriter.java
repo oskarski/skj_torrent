@@ -1,8 +1,8 @@
 package Host.Transport;
 
 import Client.RequestWriter;
-import Host.HostRequest;
+import TcpServer.Request;
 
-public class HostRequestWriter extends RequestWriter<HostRequest> {
+public class HostRequestWriter extends RequestWriter<Request> {
 
 }

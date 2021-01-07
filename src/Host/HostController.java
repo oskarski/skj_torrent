@@ -1,16 +1,17 @@
 package Host;
 
 import TcpServer.Controller;
+import TcpServer.Request;
 import TcpServer.ServerException;
 import utils.Regex;
 
 import java.util.regex.Matcher;
 
-public class HostController extends Controller<HostRequest, HostResponse> {
+public class HostController extends Controller<Request, HostResponse> {
     private final HostService hostService = new HostService();
 
     @Override
-    public HostResponse handleRequest(HostRequest request) {
+    public HostResponse handleRequest(Request request) {
         this.request = request;
 
         if (this.request.getMethod().equals(HostMethod.LIST_FILES)) return this.listFiles();

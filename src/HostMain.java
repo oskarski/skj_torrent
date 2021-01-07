@@ -1,10 +1,6 @@
 import Host.*;
 import Host.UI.HostUIThread;
-import TcpServer.ServerRequestThread;
 import TcpServer.TcpServer;
-
-import java.net.ServerSocket;
-import java.net.Socket;
 
 public class HostMain {
     public static void main(String[] args) {
@@ -14,7 +10,7 @@ public class HostMain {
         boolean runUI = Boolean.parseBoolean(args[3]);
 
         try {
-            TcpServer<HostRequest, HostResponse, HostController> server = new TcpServer<HostRequest, HostResponse, HostController>(hostPort)
+            TcpServer<HostResponse, HostController> server = new TcpServer<HostResponse, HostController>(hostPort)
                     .useRequestReader(new HostRequestReader())
                     .useResponseWriter(new HostResponseWriter())
                     .useController(new HostController());

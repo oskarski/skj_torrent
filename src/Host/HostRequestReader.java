@@ -1,14 +1,15 @@
 package Host;
 
+import TcpServer.Request;
 import TcpServer.RequestReader;
 import TcpServer.ServerException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class HostRequestReader implements RequestReader<HostRequest> {
+public class HostRequestReader implements RequestReader<Request> {
     @Override
-    public HostRequest readRequest(BufferedReader bufferedReader) {
+    public Request readRequest(BufferedReader bufferedReader) {
         try {
             String method = bufferedReader.readLine();
 
@@ -22,7 +23,7 @@ public class HostRequestReader implements RequestReader<HostRequest> {
                 data.append(dataLine);
             }
 
-            return new HostRequest(method, data.toString());
+            return new Request(method, data.toString());
         } catch (IOException exception) {
             throw ServerException.badRequestException();
         }

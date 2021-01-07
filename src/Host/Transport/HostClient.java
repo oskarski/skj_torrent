@@ -2,8 +2,8 @@ package Host.Transport;
 
 import Client.Client;
 import Host.HostMethod;
-import Host.HostRequest;
 import Host.HostResponse;
+import TcpServer.Request;
 import utils.Regex;
 
 import java.util.ArrayList;
@@ -12,14 +12,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HostClient {
-    private final Client<HostRequest, HostResponse> client;
+    private final Client<Request, HostResponse> client;
 
     public HostClient() {
-        this.client = new Client<HostRequest, HostResponse>(new HostRequestWriter(), new HostResponseReader());
+        this.client = new Client<Request, HostResponse>(new HostRequestWriter(), new HostResponseReader());
     }
 
     public ArrayList<ListFilesItem> listFiles(String hostAddress) {
-        HostResponse response = client.call(hostAddress, new HostRequest(HostMethod.LIST_FILES));
+        HostResponse response = client.call(hostAddress, new Request(HostMethod.LIST_FILES));
 
         ArrayList<ListFilesItem> listFilesItems = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class HostClient {
 
     public boolean ping(String hostAddress) {
         try {
-            HostResponse response = client.call(hostAddress, new HostRequest(HostMethod.PING));
+            HostResponse response = client.call(hostAddress, new Request(HostMethod.PING));
 
             return true;
         } catch (Exception exception) {
@@ -48,7 +48,7 @@ public class HostClient {
     public byte[] pullFileChunk(String hostAddress, String fileHash, int chunk) {
         String requestData = fileHash + " " + chunk;
 
-        HostResponse response = client.call(hostAddress, new HostRequest(HostMethod.PULL_FILE, requestData));
+        HostResponse response = client.call(hostAddress, new Request(HostMethod.PULL_FILE, requestData));
 
         return Base64.getDecoder().decode(response.getData().trim());
     }

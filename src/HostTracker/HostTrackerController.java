@@ -1,16 +1,17 @@
 package HostTracker;
 
-import utils.Regex;
 import TcpServer.Controller;
+import TcpServer.Request;
 import TcpServer.ServerException;
+import utils.Regex;
 
 import java.util.regex.Matcher;
 
-public class HostTrackerController extends Controller<HostTrackerRequest, HostTrackerResponse> {
+public class HostTrackerController extends Controller<Request, HostTrackerResponse> {
     private final HostTrackerService hostTrackerService = new HostTrackerService();
 
     @Override
-    public HostTrackerResponse handleRequest(HostTrackerRequest request) {
+    public HostTrackerResponse handleRequest(Request request) {
         this.request = request;
 
         if (this.request.getMethod().equals(HostTrackerMethod.LIST_HOSTS)) return this.listHosts();
