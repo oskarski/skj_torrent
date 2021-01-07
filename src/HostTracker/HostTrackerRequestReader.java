@@ -7,7 +7,7 @@ import TcpServer.ServerException;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class HostTrackerRequestReader implements RequestReader<Request> {
+public class HostTrackerRequestReader implements RequestReader {
     @Override
     public Request readRequest(BufferedReader bufferedReader) {
         try {
