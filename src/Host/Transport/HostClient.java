@@ -2,6 +2,7 @@ package Host.Transport;
 
 import Host.HostMethod;
 import Tcp.TcpClient.RequestWriter;
+import Tcp.TcpClient.ResponseReader;
 import Tcp.TcpClient.TcpClient;
 import Tcp.TcpServer.Request;
 import Tcp.TcpServer.Response;
@@ -13,10 +14,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HostClient {
-    private final TcpClient<Request, Response> tcpClient;
+    private final TcpClient<Request> tcpClient;
 
     public HostClient() {
-        this.tcpClient = new TcpClient<Request, Response>(new RequestWriter(), new HostResponseReader());
+        this.tcpClient = new TcpClient<>(new RequestWriter(), new ResponseReader());
     }
 
     public ArrayList<ListFilesItem> listFiles(String hostAddress) {

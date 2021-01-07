@@ -3,6 +3,7 @@ package Host.Transport;
 import Host.HostState;
 import HostTracker.HostTrackerMethod;
 import Tcp.TcpClient.RequestWriter;
+import Tcp.TcpClient.ResponseReader;
 import Tcp.TcpClient.TcpClient;
 import Tcp.TcpServer.Request;
 import Tcp.TcpServer.Response;
@@ -11,10 +12,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class HostTrackerClient {
-    private final TcpClient<Request, Response> tcpClient;
+    private final TcpClient<Request> tcpClient;
 
     public HostTrackerClient() {
-        this.tcpClient = new TcpClient<Request, Response>(new RequestWriter(), new HostTrackerResponseReader());
+        this.tcpClient = new TcpClient<>(new RequestWriter(), new ResponseReader());
     }
 
     public ArrayList<String> listHosts() {

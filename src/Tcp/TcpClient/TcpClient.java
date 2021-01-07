@@ -10,16 +10,16 @@ import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TcpClient<RequestType extends Request, ResponseType extends Response> {
+public class TcpClient<RequestType extends Request> {
     RequestWriter requestWriter;
-    ResponseReader<ResponseType> responseReader;
+    ResponseReader responseReader;
 
-    public TcpClient(RequestWriter requestWriter, ResponseReader<ResponseType> responseReader) {
+    public TcpClient(RequestWriter requestWriter, ResponseReader responseReader) {
         this.requestWriter = requestWriter;
         this.responseReader = responseReader;
     }
 
-    public ResponseType call(String address, RequestType request) {
+    public Response call(String address, RequestType request) {
         try {
             InetAddress serverAddress = InetAddress.getByName(this.getHostIP(address));
             Socket socket = new Socket(serverAddress, this.getHostPort(address));
@@ -32,7 +32,7 @@ public class TcpClient<RequestType extends Request, ResponseType extends Respons
             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
 
             this.requestWriter.send(request, bufferedWriter);
-            ResponseType response = this.responseReader.readResponse(bufferedReader);
+            Response response = this.responseReader.readResponse(bufferedReader);
 
             inputStream.close();
             outputStream.close();
