@@ -1,6 +1,7 @@
 package Host;
 
 import Host.Transport.ListFilesItem;
+import utils.FileHasher;
 
 import java.io.File;
 import java.io.IOException;
