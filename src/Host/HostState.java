@@ -36,14 +36,6 @@ public class HostState {
         return 256000;
     }
 
-    public static String getHostTrackerIP() {
-        return hostTrackerIP;
-    }
-
-    public static int getHostTrackerPort() {
-        return hostTrackerPort;
-    }
-
     public static String getHostTrackerAddress() {
         return hostTrackerIP + ":" + hostTrackerPort;
     }
