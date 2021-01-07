@@ -1,7 +1,8 @@
 import Host.HostController;
-import Host.HostRequestReader;
+import Host.HostMethod;
 import Host.HostState;
 import Host.UI.HostUIThread;
+import TcpServer.RequestReader;
 import TcpServer.Response;
 import TcpServer.ResponseWriter;
 import TcpServer.TcpServer;
@@ -15,7 +16,7 @@ public class HostMain {
 
         try {
             TcpServer<Response, HostController> server = new TcpServer<Response, HostController>(hostPort)
-                    .useRequestReader(new HostRequestReader())
+                    .useRequestReader(new RequestReader(HostMethod::isValidMethod))
                     .useResponseWriter(new ResponseWriter())
                     .useController(new HostController());
 

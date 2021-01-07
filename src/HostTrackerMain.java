@@ -1,6 +1,7 @@
 import HostTracker.HostTrackerController;
-import HostTracker.HostTrackerRequestReader;
+import HostTracker.HostTrackerMethod;
 import HostTracker.HostTrackerState;
+import TcpServer.RequestReader;
 import TcpServer.Response;
 import TcpServer.ResponseWriter;
 import TcpServer.TcpServer;
@@ -13,7 +14,7 @@ public class HostTrackerMain {
 
         try {
             TcpServer<Response, HostTrackerController> server = new TcpServer<Response, HostTrackerController>(serverPort)
-                    .useRequestReader(new HostTrackerRequestReader())
+                    .useRequestReader(new RequestReader(HostTrackerMethod::isValidMethod))
                     .useResponseWriter(new ResponseWriter())
                     .useController(new HostTrackerController());
 
