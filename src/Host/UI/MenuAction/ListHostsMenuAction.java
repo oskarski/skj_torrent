@@ -1,6 +1,6 @@
 package Host.UI.MenuAction;
 
-import Host.Transport.HostTrackerClient;
+import Host.HostState;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public class ListHostsMenuAction implements MenuAction {
 
     @Override
     public void call() {
-        ArrayList<String> hosts = HostTrackerClient.listHosts();
+        ArrayList<String> hosts = HostState.hostTrackerClient.listHosts();
 
         for (String host : hosts) {
             System.out.println(" -> " + host);

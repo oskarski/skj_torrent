@@ -1,5 +1,7 @@
 package Host;
 
+import Host.Transport.HostTrackerClient;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 
@@ -9,6 +11,7 @@ public class HostState {
     private static String hostTrackerIP;
     private static int hostTrackerPort;
     private static ServerSocket hostServerSocket;
+    public static final HostTrackerClient hostTrackerClient = new HostTrackerClient();
 
     public static void init(String workspacePathname, String hostTrackerAddress, ServerSocket hostServerSocket) {
         HostState.workspacePathname = workspacePathname;
