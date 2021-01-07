@@ -1,8 +1,8 @@
 package Host;
 
+import Host.Client.HostClient;
+import Host.Client.HostTrackerClient;
 import Host.Server.HostController;
-import Host.Transport.HostClient;
-import Host.Transport.HostTrackerClient;
 import Tcp.Response;
 import Tcp.TcpServer.TcpServer;
 

@@ -1,7 +1,7 @@
 package Host.Server;
 
+import Host.Client.ListFilesItem;
 import Host.HostState;
-import Host.Transport.ListFilesItem;
 import utils.FileRepository;
 
 import java.io.File;

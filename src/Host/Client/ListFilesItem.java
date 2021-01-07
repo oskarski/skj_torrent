@@ -1,4 +1,4 @@
-package Host.Transport;
+package Host.Client;
 
 public class ListFilesItem {
     public final String fileHash;

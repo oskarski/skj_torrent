@@ -1,7 +1,7 @@
 package Host.UI.MenuAction;
 
+import Host.Client.ListFilesItem;
 import Host.HostState;
-import Host.Transport.ListFilesItem;
 
 import java.util.ArrayList;
 

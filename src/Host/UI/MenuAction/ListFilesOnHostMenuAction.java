@@ -1,10 +1,9 @@
 package Host.UI.MenuAction;
 
+import Host.Client.ListFilesItem;
 import Host.HostState;
-import Host.Transport.ListFilesItem;
 import utils.Regex;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
