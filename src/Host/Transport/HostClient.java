@@ -1,9 +1,9 @@
 package Host.Transport;
 
 import Host.HostMethod;
-import TcpClient.TcpClient;
-import TcpServer.Request;
-import TcpServer.Response;
+import Tcp.TcpClient.TcpClient;
+import Tcp.TcpServer.Request;
+import Tcp.TcpServer.Response;
 import utils.Regex;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package TcpServer;
+package Tcp.TcpServer;
 
 import java.io.IOException;
 import java.net.ServerSocket;

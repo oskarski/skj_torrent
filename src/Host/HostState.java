@@ -2,8 +2,8 @@ package Host;
 
 import Host.Transport.HostClient;
 import Host.Transport.HostTrackerClient;
-import TcpServer.Response;
-import TcpServer.TcpServer;
+import Tcp.TcpServer.Response;
+import Tcp.TcpServer.TcpServer;
 
 import java.io.IOException;
 

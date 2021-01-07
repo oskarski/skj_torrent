@@ -1,9 +1,9 @@
 package Host;
 
-import TcpServer.Controller;
-import TcpServer.Request;
-import TcpServer.Response;
-import TcpServer.ServerException;
+import Tcp.TcpServer.Controller;
+import Tcp.TcpServer.Request;
+import Tcp.TcpServer.Response;
+import Tcp.TcpServer.ServerException;
 import utils.Regex;
 
 import java.util.regex.Matcher;

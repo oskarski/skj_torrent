@@ -1,10 +1,10 @@
 import HostTracker.HostTrackerController;
 import HostTracker.HostTrackerMethod;
 import HostTracker.HostTrackerState;
-import TcpServer.RequestReader;
-import TcpServer.Response;
-import TcpServer.ResponseWriter;
-import TcpServer.TcpServer;
+import Tcp.TcpServer.RequestReader;
+import Tcp.TcpServer.Response;
+import Tcp.TcpServer.ResponseWriter;
+import Tcp.TcpServer.TcpServer;
 
 public class HostTrackerMain {
     public static void main(String[] args) {

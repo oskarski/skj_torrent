@@ -1,7 +1,7 @@
-package TcpClient;
+package Tcp.TcpClient;
 
-import TcpServer.Request;
-import TcpServer.Response;
+import Tcp.TcpServer.Request;
+import Tcp.TcpServer.Response;
 import utils.Regex;
 
 import java.io.*;

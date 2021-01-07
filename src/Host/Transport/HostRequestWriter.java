@@ -1,7 +1,7 @@
 package Host.Transport;
 
-import TcpClient.RequestWriter;
-import TcpServer.Request;
+import Tcp.TcpClient.RequestWriter;
+import Tcp.TcpServer.Request;
 
 public class HostRequestWriter extends RequestWriter<Request> {
 

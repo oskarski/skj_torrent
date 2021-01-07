@@ -1,7 +1,7 @@
 package Host.Transport;
 
-import TcpClient.ResponseReader;
-import TcpServer.Response;
+import Tcp.TcpClient.ResponseReader;
+import Tcp.TcpServer.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;

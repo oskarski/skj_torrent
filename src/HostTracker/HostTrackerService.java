@@ -1,6 +1,6 @@
 package HostTracker;
 
-import TcpServer.ServerException;
+import Tcp.TcpServer.ServerException;
 
 import java.io.*;
 import java.util.HashSet;

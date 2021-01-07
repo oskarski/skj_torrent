@@ -2,10 +2,10 @@ import Host.HostController;
 import Host.HostMethod;
 import Host.HostState;
 import Host.UI.HostUIThread;
-import TcpServer.RequestReader;
-import TcpServer.Response;
-import TcpServer.ResponseWriter;
-import TcpServer.TcpServer;
+import Tcp.TcpServer.RequestReader;
+import Tcp.TcpServer.Response;
+import Tcp.TcpServer.ResponseWriter;
+import Tcp.TcpServer.TcpServer;
 
 public class HostMain {
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
-package TcpClient;
+package Tcp.TcpClient;
 
-import TcpServer.Response;
+import Tcp.TcpServer.Response;
 
 import java.io.BufferedReader;
 

@@ -1,4 +1,4 @@
-package TcpServer;
+package Tcp.TcpServer;
 
 public class Response {
     protected final String method;
