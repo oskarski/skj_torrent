@@ -2,6 +2,7 @@ package Host;
 
 import Tcp.TcpServer.ServerException;
 import utils.FileHasher;
+import utils.FileRepository;
 
 import java.io.File;
 import java.util.Base64;
