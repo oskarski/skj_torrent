@@ -2,16 +2,17 @@ package HostTracker;
 
 import TcpServer.Controller;
 import TcpServer.Request;
+import TcpServer.Response;
 import TcpServer.ServerException;
 import utils.Regex;
 
 import java.util.regex.Matcher;
 
-public class HostTrackerController extends Controller<Request, HostTrackerResponse> {
+public class HostTrackerController extends Controller<Request, Response> {
     private final HostTrackerService hostTrackerService = new HostTrackerService();
 
     @Override
-    public HostTrackerResponse handleRequest(Request request) {
+    public Response handleRequest(Request request) {
         this.request = request;
 
         if (this.request.getMethod().equals(HostTrackerMethod.LIST_HOSTS)) return this.listHosts();
@@ -21,31 +22,31 @@ public class HostTrackerController extends Controller<Request, HostTrackerRespon
         return null;
     }
 
-    private HostTrackerResponse listHosts() {
+    private Response listHosts() {
         if (!this.request.getData().isEmpty()) throw ServerException.badRequestException();
 
         String data = this.hostTrackerService.getHostsData();
 
-        return HostTrackerResponse.fromRequest(this.request, data);
+        return new Response(this.request.getMethod(), data);
     }
 
-    private HostTrackerResponse registerHost() {
+    private Response registerHost() {
         Matcher matcher = this.getDataMatcher("^(" + Regex.addressRegex() + ")$");
 
         String address = matcher.group(1);
 
         this.hostTrackerService.registerHost(address);
 
-        return HostTrackerResponse.fromRequest(this.request);
+        return new Response(this.request.getMethod());
     }
 
-    private HostTrackerResponse unregisterHost() {
+    private Response unregisterHost() {
         Matcher matcher = this.getDataMatcher("^(" + Regex.addressRegex() + ")$");
 
         String address = matcher.group(1);
 
         this.hostTrackerService.unregisterHost(address);
 
-        return HostTrackerResponse.fromRequest(this.request);
+        return new Response(this.request.getMethod());
     }
 }

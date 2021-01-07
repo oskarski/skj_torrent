@@ -2,16 +2,17 @@ package Host;
 
 import TcpServer.Controller;
 import TcpServer.Request;
+import TcpServer.Response;
 import TcpServer.ServerException;
 import utils.Regex;
 
 import java.util.regex.Matcher;
 
-public class HostController extends Controller<Request, HostResponse> {
+public class HostController extends Controller<Request, Response> {
     private final HostService hostService = new HostService();
 
     @Override
-    public HostResponse handleRequest(Request request) {
+    public Response handleRequest(Request request) {
         this.request = request;
 
         if (this.request.getMethod().equals(HostMethod.LIST_FILES)) return this.listFiles();
@@ -21,19 +22,19 @@ public class HostController extends Controller<Request, HostResponse> {
         return null;
     }
 
-    private HostResponse listFiles() {
+    private Response listFiles() {
         if (!this.request.getData().isEmpty()) throw ServerException.badRequestException();
 
         String data = this.hostService.getListFilesData();
 
-        return HostResponse.fromRequest(this.request, data);
+        return new Response(this.request.getMethod(), data);
     }
 
-    private HostResponse ping() {
-        return HostResponse.fromRequest(this.request, "");
+    private Response ping() {
+        return new Response(this.request.getMethod(), "");
     }
 
-    private HostResponse pullFile() {
+    private Response pullFile() {
         if (this.request.getData().isEmpty()) throw ServerException.badRequestException();
 
         Matcher matcher = this.getDataMatcher("^(" + Regex.fileHashRegex() + ") ([0-9]+)$");
@@ -43,6 +44,6 @@ public class HostController extends Controller<Request, HostResponse> {
 
         String data = this.hostService.getPullFileData(fileHash, chunk);
 
-        return HostResponse.fromRequest(this.request, data);
+        return new Response(this.request.getMethod(), data);
     }
 }

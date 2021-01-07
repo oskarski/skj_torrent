@@ -1,16 +1,16 @@
 package Host.Transport;
 
 import Client.ResponseReader;
-import Host.HostResponse;
+import TcpServer.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HostResponseReader implements ResponseReader<HostResponse> {
+public class HostResponseReader implements ResponseReader<Response> {
     @Override
-    public HostResponse readResponse(BufferedReader bufferedReader) {
+    public Response readResponse(BufferedReader bufferedReader) {
         try {
             String responseLine = bufferedReader.readLine();
 
@@ -29,7 +29,7 @@ public class HostResponseReader implements ResponseReader<HostResponse> {
                 data.append(responseLine + "\r\n");
             }
 
-            return HostResponse.create(method, code, data.toString());
+            return new Response(method, code, data.toString());
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

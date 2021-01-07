@@ -2,6 +2,7 @@ package Host;
 
 import Host.Transport.HostClient;
 import Host.Transport.HostTrackerClient;
+import TcpServer.Response;
 import TcpServer.TcpServer;
 
 import java.io.IOException;
@@ -11,11 +12,11 @@ public class HostState {
     private static String workspacePathname;
     private static String hostTrackerIP;
     private static int hostTrackerPort;
-    private static TcpServer<HostResponse, HostController> hostTcpServer;
+    private static TcpServer<Response, HostController> hostTcpServer;
     public static final HostTrackerClient hostTrackerClient = new HostTrackerClient();
     public static final HostClient hostClient = new HostClient();
 
-    public static void init(String workspacePathname, String hostTrackerAddress, TcpServer<HostResponse, HostController> hostTcpServer) {
+    public static void init(String workspacePathname, String hostTrackerAddress, TcpServer<Response, HostController> hostTcpServer) {
         HostState.workspacePathname = workspacePathname;
         HostState.hostTrackerIP = hostTrackerAddress.split(":")[0];
         HostState.hostTrackerPort = Integer.parseInt(hostTrackerAddress.split(":")[1]);

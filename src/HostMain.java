@@ -1,8 +1,8 @@
 import Host.HostController;
 import Host.HostRequestReader;
-import Host.HostResponse;
 import Host.HostState;
 import Host.UI.HostUIThread;
+import TcpServer.Response;
 import TcpServer.ResponseWriter;
 import TcpServer.TcpServer;
 
@@ -14,9 +14,9 @@ public class HostMain {
         boolean runUI = Boolean.parseBoolean(args[3]);
 
         try {
-            TcpServer<HostResponse, HostController> server = new TcpServer<HostResponse, HostController>(hostPort)
+            TcpServer<Response, HostController> server = new TcpServer<Response, HostController>(hostPort)
                     .useRequestReader(new HostRequestReader())
-                    .useResponseWriter(new ResponseWriter<HostResponse>())
+                    .useResponseWriter(new ResponseWriter<Response>())
                     .useController(new HostController());
 
             HostState.init(workspacePathname, hostTrackerAddress, server);

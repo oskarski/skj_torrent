@@ -1,7 +1,7 @@
 import HostTracker.HostTrackerController;
 import HostTracker.HostTrackerRequestReader;
-import HostTracker.HostTrackerResponse;
 import HostTracker.HostTrackerState;
+import TcpServer.Response;
 import TcpServer.ResponseWriter;
 import TcpServer.TcpServer;
 
@@ -12,9 +12,9 @@ public class HostTrackerMain {
         HostTrackerState.initialize(args[1]);
 
         try {
-            TcpServer<HostTrackerResponse, HostTrackerController> server = new TcpServer<HostTrackerResponse, HostTrackerController>(serverPort)
+            TcpServer<Response, HostTrackerController> server = new TcpServer<Response, HostTrackerController>(serverPort)
                     .useRequestReader(new HostTrackerRequestReader())
-                    .useResponseWriter(new ResponseWriter<HostTrackerResponse>())
+                    .useResponseWriter(new ResponseWriter<Response>())
                     .useController(new HostTrackerController());
 
             server.start();

@@ -1,16 +1,16 @@
 package Host.Transport;
 
 import Client.ResponseReader;
-import HostTracker.HostTrackerResponse;
+import TcpServer.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HostTrackerResponseReader implements ResponseReader<HostTrackerResponse> {
+public class HostTrackerResponseReader implements ResponseReader<Response> {
     @Override
-    public HostTrackerResponse readResponse(BufferedReader bufferedReader) {
+    public Response readResponse(BufferedReader bufferedReader) {
         try {
             String responseLine = bufferedReader.readLine();
 
@@ -29,7 +29,7 @@ public class HostTrackerResponseReader implements ResponseReader<HostTrackerResp
                 data.append(responseLine + "\r\n");
             }
 
-            return HostTrackerResponse.create(method, code, data.toString());
+            return new Response(method, code, data.toString());
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
