@@ -2,9 +2,9 @@ import Host.HostController;
 import Host.HostMethod;
 import Host.HostState;
 import Host.UI.HostUIThread;
-import Tcp.TcpServer.RequestReader;
-import Tcp.TcpServer.Response;
-import Tcp.TcpServer.ResponseWriter;
+import Tcp.RequestReader;
+import Tcp.Response;
+import Tcp.ResponseWriter;
 import Tcp.TcpServer.TcpServer;
 
 public class HostMain {

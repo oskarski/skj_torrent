@@ -1,5 +1,8 @@
 package Tcp.TcpServer;
 
+import Tcp.Request;
+import Tcp.Response;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

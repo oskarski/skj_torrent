@@ -1,6 +1,4 @@
-package Tcp.TcpClient;
-
-import Tcp.TcpServer.Request;
+package Tcp;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

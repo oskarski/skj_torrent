@@ -1,8 +1,8 @@
 package Host;
 
+import Tcp.Request;
+import Tcp.Response;
 import Tcp.TcpServer.Controller;
-import Tcp.TcpServer.Request;
-import Tcp.TcpServer.Response;
 import Tcp.TcpServer.ServerException;
 import utils.Regex;
 

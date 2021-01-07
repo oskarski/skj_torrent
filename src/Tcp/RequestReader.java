@@ -1,4 +1,7 @@
-package Tcp.TcpServer;
+package Tcp;
+
+import Tcp.TcpServer.RequestMethodValidator;
+import Tcp.TcpServer.ServerException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +13,7 @@ public class RequestReader {
         this.requestMethodValidator = requestMethodValidator;
     }
 
-    Request readRequest(BufferedReader bufferedReader) {
+    public Request readRequest(BufferedReader bufferedReader) {
         try {
             String method = bufferedReader.readLine();
 

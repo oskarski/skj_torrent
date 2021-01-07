@@ -1,4 +1,4 @@
-package Tcp.TcpServer;
+package Tcp;
 
 public class Request {
     protected final String method;

@@ -2,11 +2,7 @@ package Host.Transport;
 
 import Host.HostState;
 import HostTracker.HostTrackerMethod;
-import Tcp.TcpClient.RequestWriter;
-import Tcp.TcpClient.ResponseReader;
-import Tcp.TcpClient.TcpClient;
-import Tcp.TcpServer.Request;
-import Tcp.TcpServer.Response;
+import Tcp.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
