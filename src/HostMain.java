@@ -13,6 +13,7 @@ public class HostMain {
         int hostPort = Integer.parseInt(args[0]);
         String workspacePathname = args[1];
         String hostTrackerAddress = args[2];
+        boolean runUI = Boolean.parseBoolean(args[3]);
 
         try {
             ServerSocket hostServerSocket = new ServerSocket(hostPort);
@@ -20,7 +21,7 @@ public class HostMain {
 
 //            TODO REGISTER IN TRACKER
 
-            new Thread(HostUIThread.create()).start();
+            if (runUI) new Thread(HostUIThread.create()).start();
 
             while (HostState.getIsHostRunning()) {
                 Socket client = hostServerSocket.accept();
