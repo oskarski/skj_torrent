@@ -16,7 +16,7 @@ public class HostMain {
         try {
             TcpServer<Response, HostController> server = new TcpServer<Response, HostController>(hostPort)
                     .useRequestReader(new HostRequestReader())
-                    .useResponseWriter(new ResponseWriter<Response>())
+                    .useResponseWriter(new ResponseWriter())
                     .useController(new HostController());
 
             HostState.init(workspacePathname, hostTrackerAddress, server);

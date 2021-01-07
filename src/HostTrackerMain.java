@@ -14,7 +14,7 @@ public class HostTrackerMain {
         try {
             TcpServer<Response, HostTrackerController> server = new TcpServer<Response, HostTrackerController>(serverPort)
                     .useRequestReader(new HostTrackerRequestReader())
-                    .useResponseWriter(new ResponseWriter<Response>())
+                    .useResponseWriter(new ResponseWriter())
                     .useController(new HostTrackerController());
 
             server.start();

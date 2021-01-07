@@ -8,7 +8,7 @@ public class TcpServer<ResponseType extends Response, ControllerType extends Con
     private boolean isRunning = false;
     private int currentServerThreads = 0;
     private RequestReader requestReader;
-    private ResponseWriter<ResponseType> responseWriter;
+    private ResponseWriter responseWriter;
     private ControllerType controller;
 
     private final ServerSocket serverSocket;
@@ -24,7 +24,7 @@ public class TcpServer<ResponseType extends Response, ControllerType extends Con
         return this;
     }
 
-    public TcpServer<ResponseType, ControllerType> useResponseWriter(ResponseWriter<ResponseType> responseWriter) {
+    public TcpServer<ResponseType, ControllerType> useResponseWriter(ResponseWriter responseWriter) {
         this.responseWriter = responseWriter;
 
         return this;
@@ -58,7 +58,7 @@ public class TcpServer<ResponseType extends Response, ControllerType extends Con
         return currentServerThreads < maxServerThreads;
     }
 
-    private void handleConnection(Socket clientSocket, RequestReader requestReader, ResponseWriter<ResponseType> responseWriter, ControllerType controller) {
+    private void handleConnection(Socket clientSocket, RequestReader requestReader, ResponseWriter responseWriter, ControllerType controller) {
         currentServerThreads++;
 
         ServerRequestThread.fromClientSocket(clientSocket, requestReader, responseWriter, controller);

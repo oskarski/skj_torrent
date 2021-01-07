@@ -25,7 +25,7 @@ public class ServerRequestThread {
         }
     }
 
-    public static <ResponseType extends Response, ControllerType extends Controller<Request, ResponseType>> void fromClientSocket(Socket clientSocket, RequestReader requestReader, ResponseWriter<ResponseType> responseWriter, ControllerType controller) {
+    public static <ResponseType extends Response, ControllerType extends Controller<Request, ResponseType>> void fromClientSocket(Socket clientSocket, RequestReader requestReader, ResponseWriter responseWriter, ControllerType controller) {
         ServerRequestThread self = new ServerRequestThread(clientSocket);
 
         try {
