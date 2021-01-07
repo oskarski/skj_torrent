@@ -1,4 +1,4 @@
-package Host;
+package Host.Server;
 
 import Tcp.Request;
 import Tcp.Response;

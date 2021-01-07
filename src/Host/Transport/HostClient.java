@@ -1,6 +1,6 @@
 package Host.Transport;
 
-import Host.HostMethod;
+import Host.Server.HostMethod;
 import Tcp.*;
 import utils.Regex;
 

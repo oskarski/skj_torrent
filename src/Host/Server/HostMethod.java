@@ -1,4 +1,4 @@
-package Host;
+package Host.Server;
 
 public class HostMethod {
     public static final String LIST_FILES = "LIST_FILES";

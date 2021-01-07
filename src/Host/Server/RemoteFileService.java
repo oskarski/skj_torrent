@@ -1,5 +1,6 @@
-package Host;
+package Host.Server;
 
+import Host.HostState;
 import Host.Transport.ListFilesItem;
 import utils.FileRepository;
 
