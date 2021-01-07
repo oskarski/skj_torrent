@@ -14,10 +14,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HostClient {
-    private final TcpClient<Request> tcpClient;
+    private final TcpClient tcpClient;
 
     public HostClient() {
-        this.tcpClient = new TcpClient<>(new RequestWriter(), new ResponseReader());
+        this.tcpClient = new TcpClient(new RequestWriter(), new ResponseReader());
     }
 
     public ArrayList<ListFilesItem> listFiles(String hostAddress) {

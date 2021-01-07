@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TcpClient<RequestType extends Request> {
+public class TcpClient {
     RequestWriter requestWriter;
     ResponseReader responseReader;
 
@@ -19,7 +19,7 @@ public class TcpClient<RequestType extends Request> {
         this.responseReader = responseReader;
     }
 
-    public Response call(String address, RequestType request) {
+    public Response call(String address, Request request) {
         try {
             InetAddress serverAddress = InetAddress.getByName(this.getHostIP(address));
             Socket socket = new Socket(serverAddress, this.getHostPort(address));

@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class HostTrackerClient {
-    private final TcpClient<Request> tcpClient;
+    private final TcpClient tcpClient;
 
     public HostTrackerClient() {
-        this.tcpClient = new TcpClient<>(new RequestWriter(), new ResponseReader());
+        this.tcpClient = new TcpClient(new RequestWriter(), new ResponseReader());
     }
 
     public ArrayList<String> listHosts() {
