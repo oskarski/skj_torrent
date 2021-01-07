@@ -5,8 +5,8 @@ import Tcp.TcpServer.Request;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-public abstract class RequestWriter<RequestType extends Request> {
-    public void send(RequestType request, BufferedWriter bufferedWriter) {
+public class RequestWriter {
+    public void send(Request request, BufferedWriter bufferedWriter) {
         String data = request.getMethod() + "\r\n";
         data += request.getData() + "\r\n\r\n\r\n";
 

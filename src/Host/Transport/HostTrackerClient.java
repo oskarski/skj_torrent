@@ -2,6 +2,7 @@ package Host.Transport;
 
 import Host.HostState;
 import HostTracker.HostTrackerMethod;
+import Tcp.TcpClient.RequestWriter;
 import Tcp.TcpClient.TcpClient;
 import Tcp.TcpServer.Request;
 import Tcp.TcpServer.Response;
@@ -13,7 +14,7 @@ public class HostTrackerClient {
     private final TcpClient<Request, Response> tcpClient;
 
     public HostTrackerClient() {
-        this.tcpClient = new TcpClient<Request, Response>(new HostTrackerRequestWriter(), new HostTrackerResponseReader());
+        this.tcpClient = new TcpClient<Request, Response>(new RequestWriter(), new HostTrackerResponseReader());
     }
 
     public ArrayList<String> listHosts() {

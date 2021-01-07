@@ -11,10 +11,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TcpClient<RequestType extends Request, ResponseType extends Response> {
-    RequestWriter<RequestType> requestWriter;
+    RequestWriter requestWriter;
     ResponseReader<ResponseType> responseReader;
 
-    public TcpClient(RequestWriter<RequestType> requestWriter, ResponseReader<ResponseType> responseReader) {
+    public TcpClient(RequestWriter requestWriter, ResponseReader<ResponseType> responseReader) {
         this.requestWriter = requestWriter;
         this.responseReader = responseReader;
     }

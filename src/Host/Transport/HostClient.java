@@ -1,6 +1,7 @@
 package Host.Transport;
 
 import Host.HostMethod;
+import Tcp.TcpClient.RequestWriter;
 import Tcp.TcpClient.TcpClient;
 import Tcp.TcpServer.Request;
 import Tcp.TcpServer.Response;
@@ -15,7 +16,7 @@ public class HostClient {
     private final TcpClient<Request, Response> tcpClient;
 
     public HostClient() {
-        this.tcpClient = new TcpClient<Request, Response>(new HostRequestWriter(), new HostResponseReader());
+        this.tcpClient = new TcpClient<Request, Response>(new RequestWriter(), new HostResponseReader());
     }
 
     public ArrayList<ListFilesItem> listFiles(String hostAddress) {
