@@ -1,7 +1,7 @@
 package Host;
 
-import Server.Controller;
-import Server.ServerException;
+import TcpServer.Controller;
+import TcpServer.ServerException;
 import utils.Regex;
 
 import java.util.regex.Matcher;

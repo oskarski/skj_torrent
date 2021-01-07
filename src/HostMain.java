@@ -3,7 +3,7 @@ import Host.HostRequestReader;
 import Host.HostResponseWriter;
 import Host.HostState;
 import Host.UI.HostUIThread;
-import Server.ServerRequestThread;
+import TcpServer.ServerRequestThread;
 
 import java.net.ServerSocket;
 import java.net.Socket;

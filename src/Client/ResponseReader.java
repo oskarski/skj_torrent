@@ -1,6 +1,6 @@
 package Client;
 
-import Server.Response;
+import TcpServer.Response;
 
 import java.io.BufferedReader;
 

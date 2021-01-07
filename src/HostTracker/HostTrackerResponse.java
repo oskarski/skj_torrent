@@ -1,6 +1,6 @@
 package HostTracker;
 
-import Server.Response;
+import TcpServer.Response;
 
 public class HostTrackerResponse extends Response {
     protected HostTrackerResponse(String method, int code, String data) {

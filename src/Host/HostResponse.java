@@ -1,6 +1,6 @@
 package Host;
 
-import Server.Response;
+import TcpServer.Response;
 
 public class HostResponse extends Response {
     protected HostResponse(String method, int code, String data) {

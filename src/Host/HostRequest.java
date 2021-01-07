@@ -1,6 +1,6 @@
 package Host;
 
-import Server.Request;
+import TcpServer.Request;
 
 public class HostRequest extends Request {
     public HostRequest(String method, String data) {

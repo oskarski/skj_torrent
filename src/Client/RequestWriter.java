@@ -1,6 +1,6 @@
 package Client;
 
-import Server.Request;
+import TcpServer.Request;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package HostTracker;
 
-import Server.Request;
+import TcpServer.Request;
 
 public class HostTrackerRequest extends Request {
     public HostTrackerRequest(String method, String data) {

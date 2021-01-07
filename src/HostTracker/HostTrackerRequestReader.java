@@ -1,8 +1,7 @@
 package HostTracker;
 
-import Server.Request;
-import Server.RequestReader;
-import Server.ServerException;
+import TcpServer.RequestReader;
+import TcpServer.ServerException;
 
 import java.io.BufferedReader;
 import java.io.IOException;

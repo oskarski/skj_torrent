@@ -1,6 +1,6 @@
 package HostTracker;
 
-import Server.ResponseWriter;
+import TcpServer.ResponseWriter;
 
 public class HostTrackerResponseWriter extends ResponseWriter<HostTrackerResponse> {
 

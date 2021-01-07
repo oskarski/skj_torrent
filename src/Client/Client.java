@@ -1,7 +1,7 @@
 package Client;
 
-import Server.Request;
-import Server.Response;
+import TcpServer.Request;
+import TcpServer.Response;
 import utils.Regex;
 
 import java.io.*;

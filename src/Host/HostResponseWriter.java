@@ -1,6 +1,6 @@
 package Host;
 
-import Server.ResponseWriter;
+import TcpServer.ResponseWriter;
 
 public class HostResponseWriter extends ResponseWriter<HostResponse> {
 

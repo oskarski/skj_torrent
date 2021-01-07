@@ -1,4 +1,4 @@
-package Server;
+package TcpServer;
 
 public abstract class Request {
     protected final String method;

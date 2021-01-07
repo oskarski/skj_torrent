@@ -1,4 +1,4 @@
-package Server;
+package TcpServer;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

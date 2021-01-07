@@ -1,4 +1,4 @@
-package Server;
+package TcpServer;
 
 public class ServerException extends RuntimeException {
     private int code;
