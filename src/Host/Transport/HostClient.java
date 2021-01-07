@@ -43,4 +43,9 @@ public class HostClient {
             return false;
         }
     }
+
+    public byte[] pullFileChunk(String hostAddress, String fileHash, int chunk) {
+        // todo pull from other host
+        return new byte[1];
+    }
 }

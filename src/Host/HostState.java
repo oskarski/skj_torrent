@@ -27,6 +27,14 @@ public class HostState {
         return workspacePathname;
     }
 
+    public static String getWorkspaceTmpPathname() {
+        return workspacePathname + "/tmp";
+    }
+
+    public static int chunkSize() {
+        return 256000;
+    }
+
     public static String getHostTrackerIP() {
         return hostTrackerIP;
     }
