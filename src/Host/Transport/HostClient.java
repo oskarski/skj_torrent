@@ -7,6 +7,7 @@ import Host.HostResponse;
 import utils.Regex;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,7 +46,10 @@ public class HostClient {
     }
 
     public byte[] pullFileChunk(String hostAddress, String fileHash, int chunk) {
-        // todo pull from other host
-        return new byte[1];
+        String requestData = fileHash + " " + chunk;
+
+        HostResponse response = client.call(hostAddress, new HostRequest(HostMethod.PULL_FILE, requestData));
+
+        return Base64.getDecoder().decode(response.getData().trim());
     }
 }

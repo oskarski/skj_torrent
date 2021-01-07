@@ -34,6 +34,20 @@ public class FileService {
         }
     }
 
+    public File getFileByHash(String fileHash) {
+        try {
+            File directory = new File(HostState.getWorkspacePathname());
+
+            for (File file : directory.listFiles()) {
+                if (FileHasher.getFileHash(file).equals(fileHash)) return file;
+            }
+
+            return null;
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     private int getNumberOfChunks(int fileSize) {
         return (int) Math.ceil(fileSize * 1.0 / HostState.chunkSize());
     }
