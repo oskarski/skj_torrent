@@ -1,5 +1,9 @@
-import Host.*;
+import Host.HostController;
+import Host.HostRequestReader;
+import Host.HostResponse;
+import Host.HostState;
 import Host.UI.HostUIThread;
+import TcpServer.ResponseWriter;
 import TcpServer.TcpServer;
 
 public class HostMain {
@@ -12,7 +16,7 @@ public class HostMain {
         try {
             TcpServer<HostResponse, HostController> server = new TcpServer<HostResponse, HostController>(hostPort)
                     .useRequestReader(new HostRequestReader())
-                    .useResponseWriter(new HostResponseWriter())
+                    .useResponseWriter(new ResponseWriter<HostResponse>())
                     .useController(new HostController());
 
             HostState.init(workspacePathname, hostTrackerAddress, server);

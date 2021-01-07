@@ -3,7 +3,7 @@ package TcpServer;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-public abstract class ResponseWriter<ResponseType extends Response> {
+public class ResponseWriter<ResponseType extends Response> {
     public void send(ResponseType response, BufferedWriter bufferedWriter) {
         String data = response.getMethod() + " " + response.getCode() + "\r\n";
         data += response.getData() + "\r\n\r\n";
