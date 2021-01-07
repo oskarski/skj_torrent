@@ -1,4 +1,4 @@
-package Client;
+package TcpClient;
 
 import TcpServer.Request;
 import TcpServer.Response;
@@ -10,11 +10,11 @@ import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Client<RequestType extends Request, ResponseType extends Response> {
+public class TcpClient<RequestType extends Request, ResponseType extends Response> {
     RequestWriter<RequestType> requestWriter;
     ResponseReader<ResponseType> responseReader;
 
-    public Client(RequestWriter<RequestType> requestWriter, ResponseReader<ResponseType> responseReader) {
+    public TcpClient(RequestWriter<RequestType> requestWriter, ResponseReader<ResponseType> responseReader) {
         this.requestWriter = requestWriter;
         this.responseReader = responseReader;
     }

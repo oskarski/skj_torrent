@@ -1,6 +1,6 @@
 package Host.Transport;
 
-import Client.ResponseReader;
+import TcpClient.ResponseReader;
 import TcpServer.Response;
 
 import java.io.BufferedReader;

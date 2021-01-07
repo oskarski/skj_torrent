@@ -1,4 +1,4 @@
-package Client;
+package TcpClient;
 
 import TcpServer.Response;
 
