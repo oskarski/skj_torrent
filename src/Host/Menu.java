@@ -1,6 +1,6 @@
-package Host.UI;
+package Host;
 
-import Host.UI.MenuAction.MenuAction;
+import Host.MenuAction.MenuAction;
 
 import java.util.ArrayList;
 import java.util.Scanner;

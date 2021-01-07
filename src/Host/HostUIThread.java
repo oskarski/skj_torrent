@@ -1,7 +1,6 @@
-package Host.UI;
+package Host;
 
-import Host.HostState;
-import Host.UI.MenuAction.*;
+import Host.MenuAction.*;
 
 public class HostUIThread implements Runnable {
     private HostUIThread() {

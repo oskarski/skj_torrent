@@ -1,4 +1,4 @@
-package Host.UI.MenuAction;
+package Host.MenuAction;
 
 public interface MenuAction {
     String getName();

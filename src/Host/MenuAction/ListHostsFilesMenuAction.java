@@ -1,4 +1,4 @@
-package Host.UI.MenuAction;
+package Host.MenuAction;
 
 import Host.Client.ListFilesItem;
 import Host.HostState;
