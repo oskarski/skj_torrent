@@ -8,10 +8,15 @@ HOST_A_PORT=12346
 HOST_A_DIR=/Users/oskarkupski/IdeaProjects/SKJ_project/src/host_a
 HOST_A_RUN_UI=false
 
+HOST_B_PORT=12347
+HOST_B_DIR=/Users/oskarkupski/IdeaProjects/SKJ_project/src/host_b
+HOST_B_RUN_UI=false
 
-echo "Killing applications running on port: ${TRACKER_PORT}, ${HOST_A_PORT}"
+
+echo "Killing applications running on port: ${TRACKER_PORT}, ${HOST_A_PORT}, ${HOST_B_PORT}"
 kill $(lsof -t -i:$TRACKER_PORT)
 kill $(lsof -t -i:$HOST_A_PORT)
+kill $(lsof -t -i:$HOST_B_PORT)
 
 echo ""
 
@@ -30,6 +35,9 @@ java HostTrackerMain ${TRACKER_PORT} ${HOSTS_FILE} &
 
 echo "Running Host A program"
 java HostMain ${HOST_A_PORT} ${HOST_A_DIR} ${TRACKER_ADDRESS} ${HOST_A_RUN_UI} &
+
+echo "Running Host B program"
+java HostMain ${HOST_B_PORT} ${HOST_B_DIR} ${TRACKER_ADDRESS} ${HOST_B_RUN_UI} &
 
 echo "Success!"
 
