@@ -1,7 +1,6 @@
 package Host;
 
 import Tcp.TcpServer.ServerException;
-import utils.io.FileRepository;
 
 import java.io.File;
 import java.util.Base64;
