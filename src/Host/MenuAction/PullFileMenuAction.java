@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class PullFileMenuAction implements MenuAction {
+    private final RemoteFileService remoteFileService = new RemoteFileService();
     private ArrayList<ListFilesItem> fileList = new ArrayList<>();
 
     @Override
@@ -35,7 +36,7 @@ public class PullFileMenuAction implements MenuAction {
         int selectedFileIndex = this.readFileIndex();
         ListFilesItem selectedListFilesItem = this.fileList.get(selectedFileIndex);
 
-        new RemoteFileService().pull(selectedListFilesItem, hostsByFileHashes.get(selectedListFilesItem.fileHash));
+        remoteFileService.pull(selectedListFilesItem, hostsByFileHashes.get(selectedListFilesItem.fileHash));
     }
 
     private int readFileIndex() {
