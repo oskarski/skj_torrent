@@ -1,15 +1,12 @@
 package Host.UI.MenuAction;
 
-import Host.FileService;
 import Host.HostState;
+import Host.RemoteFileService;
 import Host.Transport.ListFilesItem;
-import utils.Regex;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class PullFileMenuAction implements MenuAction {
     private ArrayList<ListFilesItem> fileList = new ArrayList<>();
@@ -38,7 +35,7 @@ public class PullFileMenuAction implements MenuAction {
         int selectedFileIndex = this.readFileIndex();
         ListFilesItem selectedListFilesItem = this.fileList.get(selectedFileIndex);
 
-        new FileService().pull(selectedListFilesItem, hostsByFileHashes.get(selectedListFilesItem.fileHash));
+        new RemoteFileService().pull(selectedListFilesItem, hostsByFileHashes.get(selectedListFilesItem.fileHash));
     }
 
     private int readFileIndex() {

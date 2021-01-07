@@ -8,16 +8,16 @@ import java.io.File;
 import java.util.Base64;
 
 public class HostService {
-    private final FileService fileService = new FileService();
+    private final LocalFileService localFileService = new LocalFileService();
 
     public String getListFilesData() {
         try {
-            File directory = new File(HostState.getWorkspacePathname());
-
             StringBuilder data = new StringBuilder();
 
-            for (File file : directory.listFiles()) {
-                data.append(FileHasher.getFileHash(file)).append(" ")
+            for (File file : localFileService.getFileList()) {
+                String fileHash = FileHasher.getFileHash(file);
+
+                data.append(fileHash).append(" ")
                         .append(file.length()).append(" ")
                         .append(file.getName()).append("\r\n");
             }
@@ -32,7 +32,7 @@ public class HostService {
 
     public String getPullFileData(String fileHash, int chunk) {
         try {
-            File file = this.fileService.getFileByHash(fileHash);
+            File file = this.localFileService.getFileByHash(fileHash);
 
             return Base64.getEncoder().encodeToString(FileRepository.readChunk(file, (long) chunk * HostState.chunkSize(), HostState.chunkSize()));
         } catch (Exception exception) {
