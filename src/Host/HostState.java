@@ -2,24 +2,24 @@ package Host;
 
 import Host.Transport.HostClient;
 import Host.Transport.HostTrackerClient;
+import TcpServer.TcpServer;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 
 public class HostState {
     private static boolean isHostRunning;
     private static String workspacePathname;
     private static String hostTrackerIP;
     private static int hostTrackerPort;
-    private static ServerSocket hostServerSocket;
+    private static TcpServer<HostRequest, HostResponse, HostController> hostTcpServer;
     public static final HostTrackerClient hostTrackerClient = new HostTrackerClient();
     public static final HostClient hostClient = new HostClient();
 
-    public static void init(String workspacePathname, String hostTrackerAddress, ServerSocket hostServerSocket) {
+    public static void init(String workspacePathname, String hostTrackerAddress, TcpServer<HostRequest, HostResponse, HostController> hostTcpServer) {
         HostState.workspacePathname = workspacePathname;
         HostState.hostTrackerIP = hostTrackerAddress.split(":")[0];
         HostState.hostTrackerPort = Integer.parseInt(hostTrackerAddress.split(":")[1]);
-        HostState.hostServerSocket = hostServerSocket;
+        HostState.hostTcpServer = hostTcpServer;
         HostState.isHostRunning = true;
     }
 
@@ -54,7 +54,7 @@ public class HostState {
     public static void quitProgram() {
         try {
             HostState.isHostRunning = false;
-            HostState.hostServerSocket.close();
+            HostState.hostTcpServer.stop();
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

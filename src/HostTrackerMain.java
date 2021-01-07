@@ -1,9 +1,5 @@
 import HostTracker.*;
-import TcpServer.ServerRequestThread;
-
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import TcpServer.TcpServer;
 
 public class HostTrackerMain {
     public static void main(String[] args) {
@@ -12,19 +8,13 @@ public class HostTrackerMain {
         HostTrackerState.initialize(args[1]);
 
         try {
-            ServerSocket serverSocket = new ServerSocket(serverPort);
+            TcpServer<HostTrackerRequest, HostTrackerResponse, HostTrackerController> server = new TcpServer<HostTrackerRequest, HostTrackerResponse, HostTrackerController>(serverPort)
+                    .useRequestReader(new HostTrackerRequestReader())
+                    .useResponseWriter(new HostTrackerResponseWriter())
+                    .useController(new HostTrackerController());
 
-            while (true) {
-                Socket client = serverSocket.accept();
-
-                new Thread(() -> ServerRequestThread.fromClientSocket(
-                        client,
-                        new HostTrackerRequestReader(),
-                        new HostTrackerResponseWriter(),
-                        new HostTrackerController()
-                )).start();
-            }
-        } catch (IOException exception) {
+            server.start();
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
     }

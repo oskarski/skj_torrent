@@ -1,9 +1,7 @@
-import Host.HostController;
-import Host.HostRequestReader;
-import Host.HostResponseWriter;
-import Host.HostState;
+import Host.*;
 import Host.UI.HostUIThread;
 import TcpServer.ServerRequestThread;
+import TcpServer.TcpServer;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,25 +14,18 @@ public class HostMain {
         boolean runUI = Boolean.parseBoolean(args[3]);
 
         try {
-            ServerSocket hostServerSocket = new ServerSocket(hostPort);
-            HostState.init(workspacePathname, hostTrackerAddress, hostServerSocket);
+            TcpServer<HostRequest, HostResponse, HostController> server = new TcpServer<HostRequest, HostResponse, HostController>(hostPort)
+                    .useRequestReader(new HostRequestReader())
+                    .useResponseWriter(new HostResponseWriter())
+                    .useController(new HostController());
+
+            HostState.init(workspacePathname, hostTrackerAddress, server);
 
 //            TODO REGISTER IN TRACKER
 
             if (runUI) new Thread(HostUIThread.create()).start();
 
-            while (HostState.getIsHostRunning()) {
-                Socket client = hostServerSocket.accept();
-
-                new Thread(() -> ServerRequestThread.fromClientSocket(
-                        client,
-                        new HostRequestReader(),
-                        new HostResponseWriter(),
-                        new HostController()
-                )).start();
-            }
-
-            hostServerSocket.close();
+            server.start();
         } catch (Exception exception) {
 //            TODO UNREGISTER IN TRACKER
         }
