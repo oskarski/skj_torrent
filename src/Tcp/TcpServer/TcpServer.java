@@ -46,8 +46,10 @@ public class TcpServer<ResponseType extends Response, ControllerType extends Con
 
         isRunning = true;
 
-        while (isRunning && canAcceptNewConnection()) {
+        while (isRunning) {
             Socket client = serverSocket.accept();
+
+            if (!canAcceptNewConnection()) continue;
 
             new Thread(() -> handleConnection(client, requestReader, responseWriter, controller)).start();
         }

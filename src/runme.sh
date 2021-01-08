@@ -1,7 +1,6 @@
 #!/bin/bash
 
 TRACKER_PORT=12345
-HOSTS_FILE=/Users/oskarkupski/IdeaProjects/SKJ_project/src/HostTracker/hosts.txt
 TRACKER_ADDRESS=127.0.0.1:${TRACKER_PORT}
 
 HOST_A_PORT=12346
@@ -32,16 +31,13 @@ echo ""
 cd out || exit
 
 echo "Running HostTracker program"
-java HostTrackerMain ${TRACKER_PORT} ${HOSTS_FILE} &
+java HostTrackerMain ${TRACKER_PORT} &
 
 echo "Running Host A program"
 java HostMain ${HOST_A_PORT} ${HOST_A_DIR} ${TRACKER_ADDRESS} false &
 
-sleep 1
-
 echo "Running Host B program"
 java HostMain ${HOST_B_PORT} ${HOST_B_DIR} ${TRACKER_ADDRESS} false &
-sleep 1
 
 echo "Running Host C program"
 java HostMain ${HOST_C_PORT} ${HOST_C_DIR} ${TRACKER_ADDRESS} true

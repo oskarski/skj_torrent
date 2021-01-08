@@ -1,13 +1,9 @@
 package HostTracker;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 public class HostTrackerState {
-    private static String hostsPathname;
-
-    public static void initialize(String hostsPathname) {
-        HostTrackerState.hostsPathname = hostsPathname;
-    }
-
-    public static String getHostsPathname() {
-        return hostsPathname;
-    }
+    public final static Set<String> hosts = Collections.synchronizedSet(new HashSet<>());
 }
