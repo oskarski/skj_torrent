@@ -24,6 +24,7 @@ public class PullFileMenuAction implements MenuAction {
         int i = 0;
 
         for (String hostAddress : hosts) {
+            if (hostAddress.equals(HostState.getHostTcpServer().getAddress())) continue;
             System.out.println(" -> " + hostAddress);
 
             for (ListFilesItem listFilesItem : HostState.hostClient.listFiles(hostAddress)) {

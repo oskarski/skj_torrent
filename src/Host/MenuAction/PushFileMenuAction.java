@@ -42,6 +42,7 @@ public class PushFileMenuAction implements MenuAction {
         int hostIndex = 0;
 
         for (String host : hosts) {
+            if (host.equals(HostState.getHostTcpServer().getAddress())) continue;
             System.out.println(" [" + hostIndex++ + "] " + host);
         }
 

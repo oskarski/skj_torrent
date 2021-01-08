@@ -49,6 +49,10 @@ public class HostState {
         return isHostRunning;
     }
 
+    public static TcpServer<Response, HostController> getHostTcpServer() {
+        return hostTcpServer;
+    }
+
     public static void quitProgram() {
         try {
             HostState.isHostRunning = false;

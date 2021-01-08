@@ -16,6 +16,8 @@ public class ListHostsFilesMenuAction implements MenuAction {
         ArrayList<String> hosts = HostState.hostTrackerClient.listHosts();
 
         for (String hostAddress : hosts) {
+            if (hostAddress.equals(HostState.getHostTcpServer().getAddress())) continue;
+
             System.out.println(" -> " + hostAddress);
 
             for (ListFilesItem listFilesItem : HostState.hostClient.listFiles(hostAddress)) {

@@ -15,6 +15,7 @@ public class ListHostsMenuAction implements MenuAction {
         ArrayList<String> hosts = HostState.hostTrackerClient.listHosts();
 
         for (String host : hosts) {
+            if (host.equals(HostState.getHostTcpServer().getAddress())) continue;
             System.out.println(" -> " + host);
         }
     }
