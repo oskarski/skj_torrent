@@ -13,6 +13,7 @@ public class HostMain {
         String workspacePathname = args[1];
         String hostTrackerAddress = args[2];
         boolean runUI = Boolean.parseBoolean(args[3]);
+        boolean h2hMode = args.length >= 5 && Boolean.parseBoolean(args[4]);
 
         try {
             TcpServer<Response, HostController> server = new TcpServer<Response, HostController>(hostPort)
@@ -20,15 +21,15 @@ public class HostMain {
                     .useResponseWriter(new ResponseWriter())
                     .useController(new HostController());
 
-            HostState.init(workspacePathname, hostTrackerAddress, server);
+            HostState.init(workspacePathname, hostTrackerAddress, server, h2hMode);
 
-            HostState.hostTrackerClient.registerHost(server.getAddress());
+            if (!h2hMode) HostState.hostTrackerClient.registerHost(server.getAddress());
 
             if (runUI) new Thread(HostUIThread.create()).start();
 
             server.start();
         } catch (Exception exception) {
-
+            System.out.println(exception.getMessage());
         }
     }
 }

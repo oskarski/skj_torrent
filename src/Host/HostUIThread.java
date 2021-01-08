@@ -16,11 +16,16 @@ public class HostUIThread implements Runnable {
         try {
             Menu menu = new Menu()
                     .addMenuAction(new QuitMenuAction())
-                    .addMenuAction(new ListMyFilesMenuAction())
-                    .addMenuAction(new ListHostsMenuAction())
-                    .addMenuAction(new ListHostsFilesMenuAction())
-                    .addMenuAction(new ListFilesOnHostMenuAction())
-                    .addMenuAction(new PullFileMenuAction())
+                    .addMenuAction(new ListMyFilesMenuAction());
+
+            if (HostState.isH2hMode()) {
+                menu.addMenuAction(new ListPeerFilesMenuAction());
+            } else {
+                menu.addMenuAction(new ListHostsMenuAction())
+                        .addMenuAction(new ListHostsFilesMenuAction())
+                        .addMenuAction(new ListFilesOnHostMenuAction());
+            }
+            menu.addMenuAction(new PullFileMenuAction())
                     .addMenuAction(new PushFileMenuAction());
 
             while (HostState.getIsHostRunning()) {

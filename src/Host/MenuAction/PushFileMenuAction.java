@@ -37,18 +37,25 @@ public class PushFileMenuAction implements MenuAction {
 
         int selectedFileIndex = readFileIndex(files.size());
 
-        ArrayList<String> hosts = HostState.hostTrackerClient.listHosts();
+        ArrayList<String> hosts;
+        int selectedHostIndex = 0;
 
-        int hostIndex = 0;
+        if (HostState.isH2hMode()) {
+            hosts = new ArrayList<>();
+            hosts.add(HostState.getPeerAddress());
+        } else {
+            hosts = HostState.hostTrackerClient.listHosts();
 
-        for (String host : hosts) {
-            if (host.equals(HostState.getHostTcpServer().getAddress())) continue;
-            System.out.println(" [" + hostIndex++ + "] " + host);
+            int hostIndex = 0;
+            for (String host : hosts) {
+                if (host.equals(HostState.getHostTcpServer().getAddress())) continue;
+                System.out.println(" [" + hostIndex++ + "] " + host);
+            }
+
+            selectedHostIndex = readHostIndex(hosts.size());
         }
 
-        int selectedHostIndex = readHostIndex(hosts.size());
-
-        System.out.println("Podaj nazwe dla wgranego pliku: ");
+        System.out.println("Type uploaded file name: ");
         Scanner scanner = new Scanner(System.in);
         String fileName = scanner.nextLine();
 

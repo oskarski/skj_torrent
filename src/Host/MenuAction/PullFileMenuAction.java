@@ -20,7 +20,15 @@ public class PullFileMenuAction implements MenuAction {
 
     @Override
     public void call() {
-        ArrayList<String> hosts = HostState.hostTrackerClient.listHosts();
+        ArrayList<String> hosts;
+
+        if (HostState.isH2hMode()) {
+            hosts = new ArrayList<>();
+            hosts.add(HostState.getPeerAddress());
+        } else {
+            hosts = HostState.hostTrackerClient.listHosts();
+        }
+
         HashMap<String, HashSet<String>> hostsByFileHashes = new HashMap<>();
         int i = 0;
 
