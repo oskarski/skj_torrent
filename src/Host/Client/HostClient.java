@@ -50,4 +50,11 @@ public class HostClient {
 
         return Base64.getDecoder().decode(response.getData().trim());
     }
+
+    public void pushFileChunk(String hostAddress, String fileHash, String fileName, byte[] fileChunkData, int chunk, int totalChunks) {
+        String requestData = fileHash + " " + chunk + "/" + totalChunks + " " + fileName + "\r\n";
+        requestData += Base64.getEncoder().encodeToString(fileChunkData);
+
+        Response response = tcpClient.call(hostAddress, new Request(HostMethod.PUSH_FILE, requestData));
+    }
 }

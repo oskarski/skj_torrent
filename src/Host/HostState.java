@@ -29,8 +29,12 @@ public class HostState {
         return workspacePathname;
     }
 
-    public static String getWorkspaceTmpPathname() {
-        return workspacePathname + "/tmp";
+    public static String getWorkspacePullTmpPathname() {
+        return workspacePathname + "/tmp/pull";
+    }
+
+    public static String getWorkspacePushTmpPathname() {
+        return workspacePathname + "/tmp/push";
     }
 
     public static int chunkSize() {

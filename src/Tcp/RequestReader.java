@@ -24,7 +24,7 @@ public class RequestReader {
 
             while (dataLine != null && !dataLine.isEmpty()) {
                 dataLine = bufferedReader.readLine();
-                data.append(dataLine);
+                data.append("\r\n").append(dataLine);
             }
 
             return new Request(method, data.toString());

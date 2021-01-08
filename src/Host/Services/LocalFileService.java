@@ -59,7 +59,7 @@ public class LocalFileService {
 
         try {
             for (int chunk = 0; chunk < totalChunks; chunk++) {
-                File chunkFile = new File(this.getFileChunkPathname(fileHash, chunk));
+                File chunkFile = new File(this.getPullFileChunkPathname(fileHash, chunk));
 
                 FileRepository.append(outputFile, FileRepository.read(chunkFile));
             }
@@ -68,8 +68,8 @@ public class LocalFileService {
         }
     }
 
-    private String getFileChunkPathname(String fileHash, int chunk) {
-        return HostState.getWorkspaceTmpPathname() + "/" + fileHash + "/" + chunk + ".chunk";
+    private String getPullFileChunkPathname(String fileHash, int chunk) {
+        return HostState.getWorkspacePullTmpPathname() + "/" + fileHash + "/" + chunk + ".chunk";
     }
 
     public boolean fileExists(String filePathname) {

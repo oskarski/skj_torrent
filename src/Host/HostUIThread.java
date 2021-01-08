@@ -20,7 +20,8 @@ public class HostUIThread implements Runnable {
                     .addMenuAction(new ListHostsMenuAction())
                     .addMenuAction(new ListHostsFilesMenuAction())
                     .addMenuAction(new ListFilesOnHostMenuAction())
-                    .addMenuAction(new PullFileMenuAction());
+                    .addMenuAction(new PullFileMenuAction())
+                    .addMenuAction(new PushFileMenuAction());
 
             while (HostState.getIsHostRunning()) {
                 menu.render();
