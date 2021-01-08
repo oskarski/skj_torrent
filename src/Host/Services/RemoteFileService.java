@@ -21,6 +21,7 @@ public class RemoteFileService {
                     byte[] chunkBytes = HostState.hostClient.pullFileChunk(hostAddress, fileHash, chunk);
 
                     FileRepository.write(new File(getPullFileChunkPathname(fileHash, chunk)), chunkBytes);
+                    System.out.println("Pulled " + (chunk + 1) + "/" + totalChunks);
                 }
             }
 
@@ -47,12 +48,8 @@ public class RemoteFileService {
                     byte[] chunkBytes = FileRepository.readChunk(file, (long) chunk * HostState.chunkSize(), HostState.chunkSize());
 
                     HostState.hostClient.pushFileChunk(hostAddress, fileHash, file.getName(), chunkBytes, chunk, totalChunks);
+                    System.out.println("Pushed " + (chunk + 1) + "/" + totalChunks);
                 }
-            }
-
-            if (countPushedChunks(fileHash) < totalChunks - 1) {
-                push(file, hostAddress);
-                return;
             }
 
             localFileService.deleteDirectory(fileHashDirectory);
@@ -107,9 +104,5 @@ public class RemoteFileService {
 
     private int countPulledChunks(String fileHash) {
         return localFileService.countFilesInDirectory(getPullFileHashDirectory(fileHash));
-    }
-
-    private int countPushedChunks(String fileHash) {
-        return localFileService.countFilesInDirectory(getPushFileHashDirectory(fileHash));
     }
 }
