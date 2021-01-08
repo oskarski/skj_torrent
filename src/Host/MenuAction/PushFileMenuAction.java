@@ -48,7 +48,11 @@ public class PushFileMenuAction implements MenuAction {
 
         int selectedHostIndex = readHostIndex(hosts.size());
 
-        remoteFileService.push(files.get(selectedFileIndex), hosts.get(selectedHostIndex));
+        System.out.println("Podaj nazwe dla wgranego pliku: ");
+        Scanner scanner = new Scanner(System.in);
+        String fileName = scanner.nextLine();
+
+        remoteFileService.push(files.get(selectedFileIndex), hosts.get(selectedHostIndex), fileName);
     }
 
     private int readFileIndex(int maxIndex) {

@@ -53,7 +53,7 @@ public class RemoteFileService {
         }
     }
 
-    public void push(File file, String hostAddress) {
+    public void push(File file, String hostAddress, String fileName) {
         try {
             String fileHash = FileHasher.getFileHash(file);
             File fileHashDirectory = this.getPushFileHashDirectory(fileHash);
@@ -63,7 +63,7 @@ public class RemoteFileService {
                 if (!this.isChunkPushed(fileHash, chunk)) {
                     byte[] chunkBytes = FileRepository.readChunk(file, (long) chunk * HostState.chunkSize(), HostState.chunkSize());
 
-                    HostState.hostClient.pushFileChunk(hostAddress, fileHash, file.getName(), chunkBytes, chunk, totalChunks);
+                    HostState.hostClient.pushFileChunk(hostAddress, fileHash, fileName, chunkBytes, chunk, totalChunks);
                     System.out.println("Pushed " + (chunk + 1) + "/" + totalChunks);
                 }
             }
