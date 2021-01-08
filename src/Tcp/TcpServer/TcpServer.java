@@ -75,4 +75,8 @@ public class TcpServer<ResponseType extends Response, ControllerType extends Con
         isRunning = false;
         serverSocket.close();
     }
+
+    public String getAddress() {
+        return serverSocket.getInetAddress().getHostAddress() + ":" + serverSocket.getLocalPort();
+    }
 }

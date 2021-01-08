@@ -53,6 +53,7 @@ public class HostState {
         try {
             HostState.isHostRunning = false;
             HostState.hostTcpServer.stop();
+            hostTrackerClient.unregisterHost(hostTcpServer.getAddress());
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

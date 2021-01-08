@@ -22,13 +22,13 @@ public class HostMain {
 
             HostState.init(workspacePathname, hostTrackerAddress, server);
 
-//            TODO REGISTER IN TRACKER
+            HostState.hostTrackerClient.registerHost(server.getAddress());
 
             if (runUI) new Thread(HostUIThread.create()).start();
 
             server.start();
         } catch (Exception exception) {
-//            TODO UNREGISTER IN TRACKER
+
         }
     }
 }

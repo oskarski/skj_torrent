@@ -19,4 +19,14 @@ public class HostTrackerClient {
 
         return new ArrayList<>(Arrays.asList(response.getData().split("\r\n")));
     }
+
+    public void registerHost(String hostAddress) {
+        String data = hostAddress + "\r\n";
+        Response response = tcpClient.call(HostState.getHostTrackerAddress(), new Request(HostTrackerMethod.REGISTER_HOST, data));
+    }
+
+    public void unregisterHost(String hostAddress) {
+        String data = hostAddress + "\r\n";
+        Response response = tcpClient.call(HostState.getHostTrackerAddress(), new Request(HostTrackerMethod.UNREGISTER_HOST, data));
+    }
 }
