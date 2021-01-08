@@ -13,10 +13,11 @@ HOST_C_PORT=12348
 HOST_C_DIR=/Users/oskarkupski/IdeaProjects/SKJ_project/src/workspace/host_c
 
 
-echo "Killing applications running on port: ${TRACKER_PORT}, ${HOST_A_PORT}, ${HOST_B_PORT}"
+echo "Killing applications running on port: ${TRACKER_PORT}, ${HOST_A_PORT}, ${HOST_B_PORT}, ${HOST_C_PORT}"
 kill $(lsof -t -i:$TRACKER_PORT)
 kill $(lsof -t -i:$HOST_A_PORT)
 kill $(lsof -t -i:$HOST_B_PORT)
+kill $(lsof -t -i:$HOST_C_PORT)
 
 echo ""
 
