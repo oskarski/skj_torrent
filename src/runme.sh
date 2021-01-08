@@ -11,7 +11,7 @@ HOST_B_PORT=12347
 HOST_B_DIR=/Users/oskarkupski/IdeaProjects/SKJ_project/src/workspace/host_b
 
 HOST_C_PORT=12348
-HOST_C_DIR=/Users/oskarkupski/IdeaProjects/SKJ_project/src/workspace/host_z
+HOST_C_DIR=/Users/oskarkupski/IdeaProjects/SKJ_project/src/workspace/host_c
 
 
 echo "Killing applications running on port: ${TRACKER_PORT}, ${HOST_A_PORT}, ${HOST_B_PORT}"
