@@ -1,5 +1,6 @@
 package Host.Server;
 
+import Host.Services.HostService;
 import Tcp.Request;
 import Tcp.Response;
 import Tcp.TcpServer.Controller;

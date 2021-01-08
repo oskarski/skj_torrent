@@ -1,7 +1,6 @@
-package Host.Server;
+package Host.Services;
 
 import Host.HostState;
-import Host.LocalFileService;
 import Tcp.TcpServer.ServerException;
 import utils.FileHasher;
 import utils.FileRepository;

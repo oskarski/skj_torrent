@@ -1,5 +1,6 @@
-package Host;
+package Host.Services;
 
+import Host.HostState;
 import utils.FileHasher;
 import utils.FileRepository;
 

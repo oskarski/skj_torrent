@@ -1,8 +1,7 @@
-package Host.Server;
+package Host.Services;
 
 import Host.Client.ListFilesItem;
 import Host.HostState;
-import Host.LocalFileService;
 import utils.FileRepository;
 
 import java.io.File;

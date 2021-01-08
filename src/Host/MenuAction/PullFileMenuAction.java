@@ -2,7 +2,7 @@ package Host.MenuAction;
 
 import Host.Client.ListFilesItem;
 import Host.HostState;
-import Host.Server.RemoteFileService;
+import Host.Services.RemoteFileService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
