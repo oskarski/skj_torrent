@@ -6,6 +6,7 @@ import Host.Services.RemoteFileService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class PullFileMenuAction implements MenuAction {
@@ -20,7 +21,7 @@ public class PullFileMenuAction implements MenuAction {
     @Override
     public void call() {
         ArrayList<String> hosts = HostState.hostTrackerClient.listHosts();
-        HashMap<String, String> hostsByFileHashes = new HashMap<>();
+        HashMap<String, HashSet<String>> hostsByFileHashes = new HashMap<>();
         int i = 0;
 
         for (String hostAddress : hosts) {
@@ -29,7 +30,14 @@ public class PullFileMenuAction implements MenuAction {
 
             for (ListFilesItem listFilesItem : HostState.hostClient.listFiles(hostAddress)) {
                 fileList.add(listFilesItem);
-                hostsByFileHashes.put(listFilesItem.fileHash, hostAddress);
+
+                HashSet<String> hostAddresses = hostsByFileHashes.get(listFilesItem.fileHash);
+
+                if (hostAddresses == null) hostAddresses = new HashSet<>();
+
+                hostAddresses.add(hostAddress);
+
+                hostsByFileHashes.put(listFilesItem.fileHash, hostAddresses);
                 System.out.println("    [" + i++ + "] " + listFilesItem.fileName + " " + listFilesItem.size + "B");
             }
         }

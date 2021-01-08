@@ -6,27 +6,43 @@ import utils.FileHasher;
 import utils.FileRepository;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class RemoteFileService {
     private final LocalFileService localFileService = new LocalFileService();
 
-    public void pull(ListFilesItem listFilesItem, String hostAddress) {
+    public void pull(ListFilesItem listFilesItem, HashSet<String> hostAddresses) {
         try {
             String fileHash = listFilesItem.fileHash;
             File fileHashDirectory = this.getPullFileHashDirectory(fileHash);
             int totalChunks = this.getNumberOfChunks(listFilesItem.size);
+            int maxHostsToPullFrom = 3;
+            ArrayList<Thread> pullThreads = new ArrayList<>();
 
-            for (int chunk = 0; chunk < totalChunks; chunk++) {
-                if (!this.isChunkPulled(fileHash, chunk)) {
-                    byte[] chunkBytes = HostState.hostClient.pullFileChunk(hostAddress, fileHash, chunk);
+            int chunk = 0;
+            while (chunk < totalChunks) {
+                int i = 0;
+                for (String hostAddress : hostAddresses) {
+                    if (chunk >= totalChunks) break;
+                    if (i++ > maxHostsToPullFrom) break;
 
-                    FileRepository.write(new File(getPullFileChunkPathname(fileHash, chunk)), chunkBytes);
-                    System.out.println("Pulled " + (chunk + 1) + "/" + totalChunks);
+                    int threadChunk = chunk++;
+                    if (this.isChunkPulled(fileHash, chunk)) continue;
+
+                    Thread pullThread = createPullChunkThread(hostAddress, fileHash, threadChunk, totalChunks);
+
+                    pullThreads.add(pullThread);
+                    pullThread.start();
                 }
+
+                for (Thread pullThread : pullThreads) pullThread.join();
+
+                pullThreads.clear();
             }
 
             if (countPulledChunks(fileHash) < totalChunks) {
-                pull(listFilesItem, hostAddress);
+                pull(listFilesItem, hostAddresses);
                 return;
             }
 
@@ -104,5 +120,18 @@ public class RemoteFileService {
 
     private int countPulledChunks(String fileHash) {
         return localFileService.countFilesInDirectory(getPullFileHashDirectory(fileHash));
+    }
+
+    private Thread createPullChunkThread(String hostAddress, String fileHash, int chunk, int totalChunks) {
+        return new Thread(() -> {
+            try {
+                byte[] chunkBytes = HostState.hostClient.pullFileChunk(hostAddress, fileHash, chunk);
+
+                FileRepository.write(new File(getPullFileChunkPathname(fileHash, chunk)), chunkBytes);
+                System.out.println("Pulled " + (chunk + 1) + "/" + totalChunks + " from " + hostAddress);
+            } catch (Exception exception) {
+                throw new RuntimeException(exception);
+            }
+        });
     }
 }
