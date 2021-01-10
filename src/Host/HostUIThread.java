@@ -1,6 +1,14 @@
 package Host;
 
-import Host.MenuAction.*;
+
+import Host.MenuAction.ListHostsMenuAction;
+import Host.MenuAction.ListMyFilesMenuAction;
+import Host.MenuAction.ListPeerFilesMenuAction;
+import Host.MenuAction.QuitMenuAction;
+import Host.MenuAction.ListHostsFilesMenuAction;
+import Host.MenuAction.ListFilesOnHostMenuAction;
+import Host.MenuAction.PullFileMenuAction;
+import Host.MenuAction.PushFileMenuAction;
 
 public class HostUIThread implements Runnable {
     private HostUIThread() {

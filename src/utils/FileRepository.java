@@ -21,7 +21,8 @@ public class FileRepository {
     public static byte[] read(File file) throws IOException {
         InputStream inStream = new FileInputStream(file);
 
-        byte[] fileContentBytes = inStream.readAllBytes();
+        byte[] fileContentBytes = new byte[(int) file.length()];
+        inStream.read(fileContentBytes);
 
         inStream.close();
 
